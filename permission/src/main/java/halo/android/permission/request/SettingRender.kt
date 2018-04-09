@@ -20,9 +20,7 @@ interface SettingRender {
 
     interface Process {
 
-        fun onNext()
-
-        fun onNext(settingIntent: Intent)
+        fun onNext(autoCheckWhenSettingResult: Boolean)
 
         fun onCancel()
     }

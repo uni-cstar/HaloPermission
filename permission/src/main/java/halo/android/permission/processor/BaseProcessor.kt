@@ -46,7 +46,13 @@ abstract class BaseProcessor(override val request: Request,
      * 校验请求
      */
     override fun invoke() {
+        invoke(false)
+    }
 
+    /**
+     * 是否忽略检查RationalePermission：用于在设置权限界面关闭之后，重新校验权限，但不用再次询问Rationale部分的处理
+     */
+    fun invoke(ignoreRationalCheck: Boolean) {
         val permissions = request.getPermissions()
 
         mDenidPermissons.clear()
@@ -56,15 +62,19 @@ abstract class BaseProcessor(override val request: Request,
         }
 
         if (mDenidPermissons.isNotEmpty()) {
-            //过滤rationnale权限
-            val rationalePermissions = mDenidPermissons.filter {
-                request.permissionContext.shouldShowRequestPermissionRationale(it)
-            }
-
-            if (rationalePermissions.isNotEmpty()) {
-                notifyRationaleView(rationalePermissions)
-            } else {
+            if (ignoreRationalCheck) {
                 requestPermissionsReal()
+            } else {
+                //过滤rationnale权限
+                val rationalePermissions = mDenidPermissons.filter {
+                    request.permissionContext.shouldShowRequestPermissionRationale(it)
+                }
+
+                if (rationalePermissions.isNotEmpty()) {
+                    notifyRationaleView(rationalePermissions)
+                } else {
+                    requestPermissionsReal()
+                }
             }
         } else {
             notifyPermissionSucceed()
@@ -121,6 +131,11 @@ abstract class BaseProcessor(override val request: Request,
     private var isSettingRenderDone = false
 
     /**
+     * 控制在设置界面关闭之后，是否自动重新检查权限
+     */
+    private var autoCheckWhenSettingResult: Boolean = true
+
+    /**
      * 处理权限设置SettingRende
      */
     private fun notifySettingRender() {
@@ -137,6 +152,8 @@ abstract class BaseProcessor(override val request: Request,
      * [PermissionResponder]回调 处理请求的权限结果返回
      */
     override fun onPermissionResult(sender: RequestContext, permissions: Array<out String>?) {
+        //关闭上下文
+        sender.finish()
         //过滤被拒绝的权限
         val denyPermissions = permissions?.filter {
             !isPermissionGrantedForPermissionResult(request.getContext(), it)
@@ -147,16 +164,26 @@ abstract class BaseProcessor(override val request: Request,
         } else {
             notifySettingRender()
         }
-        //关闭上下文
-        sender.finish()
     }
 
     /**
      * [SettingResponder]回调
      */
     override fun onSettingResult(sender: RequestContext) {
-        invoke()
         sender.finish()
+        if (autoCheckWhenSettingResult) {
+            //过滤被拒绝的权限
+            mDenidPermissons.clear()
+            request.getPermissions().filterTo(mDenidPermissons) {
+                !isPermissionGrantedForPermissionResult(request.getContext(), it)
+            }
+
+            if (mDenidPermissons.isEmpty()) {
+                notifyPermissionSucceed()
+            } else {
+                notifyPermissionFailed()
+            }
+        }
     }
 
     /**
@@ -194,18 +221,18 @@ abstract class BaseProcessor(override val request: Request,
      * RationaleView回调
      */
     private val mSettingProcess: SettingRender.Process by lazy {
-        object : SettingRender.Process {
-            override fun onNext(settingIntent: Intent) {
 
-            }
+
+        object : SettingRender.Process {
+
 
             /**
              * RationaleView回调 下一步
              */
-            override fun onNext() {
+            override fun onNext(autoCheckWhenSettingResult: Boolean) {
+                this@BaseProcessor.autoCheckWhenSettingResult = autoCheckWhenSettingResult
                 requestSettingReal()
             }
-
 
             /**
              * RationaleView回调 取消

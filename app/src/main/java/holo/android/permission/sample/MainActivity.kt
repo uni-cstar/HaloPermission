@@ -82,31 +82,31 @@ class MainActivity : AppCompatActivity() {
 
     fun btn3Click(v: View?) {
         HoloPermission.with(this)
-                .setPermissions(Manifest.permission.SEND_SMS)
+                .setPermissions(Manifest.permission.READ_CONTACTS)
                 .setGrandAction(object:Action{
                     override fun invoke(permissions: List<String>) {
-                        toast("允许发短信")
+                        toast("允许读取联系人")
                     }
 
                 })
                 .setDenyAction(object:Action{
                     override fun invoke(permissions: List<String>) {
-                        toast("不允许发短信")
+                        toast("不允许读取联系人")
                     }
                 })
                 .setSettingRender(object:SettingRender{
                     override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
                         AlertDialog.Builder(this@MainActivity)
-                                .setMessage("无法获取发短信权限，请设置，否则无法正常使用该功能。")
+                                .setMessage("无法读取联系人权限，请设置，否则无法正常使用该功能。")
                                 .setPositiveButton("设置",object:DialogInterface.OnClickListener{
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
+                                        process.onNext(false)
                                     }
 
                                 })
                                 .setNegativeButton("拒绝",object:DialogInterface.OnClickListener{
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
+                                        process.onCancel()
                                     }
                                 })
                                 .setOnCancelListener {
@@ -160,13 +160,13 @@ class MainActivity : AppCompatActivity() {
                                 .setMessage("无法使用相机，请设置，否则无法正常使用该功能。")
                                 .setPositiveButton("设置",object:DialogInterface.OnClickListener{
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
+                                        process.onNext(true)
                                     }
 
                                 })
                                 .setNegativeButton("拒绝",object:DialogInterface.OnClickListener{
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
+                                        process.onCancel()
                                     }
                                 })
                                 .setOnCancelListener {
