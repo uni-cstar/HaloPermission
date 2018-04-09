@@ -7,6 +7,7 @@ import halo.android.permission.checker.StandardChecker
 import halo.android.permission.context.PermissionContext
 import halo.android.permission.processor.CommonProcessor
 import halo.android.permission.processor.PermissionProcessor
+import halo.android.permission.setting.DefaultSettingRender
 
 /**
  * Created by Lucio on 18/4/4.
@@ -23,8 +24,8 @@ class Request(val permissionContext: PermissionContext) {
      */
     private var mSettingRender: SettingRender? = null
     private var mPermissions: Array<out String> = emptyArray()
-    private var mGrandAction: Action? = null
-    private var mDenyAction: Action? = null
+    private var mGrandAction: GrandAction? = null
+    private var mDenyAction: DenyAction? = null
 
     fun getContext() = permissionContext.ctx
 
@@ -42,6 +43,14 @@ class Request(val permissionContext: PermissionContext) {
         return this
     }
 
+    /**
+     * 使用对话框形式引导用户
+     */
+    fun setRationaleRender(msg: String, title: String? = null, okText: String = "OK", cancelText: String? = null): Request {
+        mRationaleRender = DefaultRationaleRender(msg, title, okText, cancelText)
+        return this
+    }
+
     fun getRationaleRender(): RationaleRender? {
         return mRationaleRender
     }
@@ -51,28 +60,41 @@ class Request(val permissionContext: PermissionContext) {
         return this
     }
 
+    /**
+     * 使用对话框的形式引导用户
+     */
+    fun setSettingRender(msg: String, title: String? = null, okText: String = "OK", cancelText: String? = null): Request {
+        mSettingRender = DefaultSettingRender(msg, title, okText, cancelText)
+        return this
+    }
+
     fun getSettingRender(): SettingRender? {
         return mSettingRender
     }
 
-    fun setGrandAction(action: Action?): Request {
+    fun setGrandAction(action: GrandAction?): Request {
         mGrandAction = action
         return this
     }
 
-    fun getGrandAction(): Action? {
+    fun getGrandAction(): GrandAction? {
         return mGrandAction
     }
 
-    fun setDenyAction(action: Action?): Request {
+    fun setDenyAction(action: DenyAction?): Request {
         mDenyAction = action
         return this
     }
 
-    fun getDenyAction(): Action? {
+    fun getDenyAction(): DenyAction? {
         return mDenyAction
     }
 
+    fun setListener(action: PermissionListener?): Request {
+        mDenyAction = action
+        mGrandAction = action
+        return this
+    }
 
     fun build(): PermissionProcessor {
         return build(StandardChecker(), ActivityPermissionCaller())
@@ -82,4 +104,10 @@ class Request(val permissionContext: PermissionContext) {
         return CommonProcessor(this, checker, caller)
     }
 
+    /**
+     * 立即执行
+     */
+    fun run() {
+        build().invoke()
+    }
 }

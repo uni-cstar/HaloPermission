@@ -85,14 +85,14 @@ abstract class BaseProcessor(override val request: Request,
      * 权限请求成功
      */
     protected fun notifyPermissionSucceed() {
-        request.getGrandAction()?.invoke(request.getPermissions().toList())
+        request.getGrandAction()?.onPermissionGrand(request.getPermissions().toList())
     }
 
     /**
      * 权限请求失败
      */
     protected open fun notifyPermissionFailed() {
-        request.getDenyAction()?.invoke(mDenidPermissons)
+        request.getDenyAction()?.onPermissionDenied(mDenidPermissons)
     }
 
     /**
@@ -183,7 +183,7 @@ abstract class BaseProcessor(override val request: Request,
             } else {
                 notifyPermissionFailed()
             }
-        } 
+        }
     }
 
     /**

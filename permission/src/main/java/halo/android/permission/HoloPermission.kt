@@ -33,4 +33,15 @@ object HoloPermission {
         return Request(SupportFragmentContext(fragment))
     }
 
+    fun with(ctx: Context, vararg permission: String): Request {
+        return with(ctx).setPermissions(*permission)
+    }
+
+    fun with(fragment: android.app.Fragment, vararg permission: String): Request {
+        return with(fragment).setPermissions(*permission)
+    }
+
+    fun with(fragment: Fragment, vararg permission: String): Request {
+        return with(fragment).setPermissions(*permission)
+    }
 }

@@ -26,3 +26,4 @@ dependencies {
     provided "com.android.support:appcompat-v7:$support_version"
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
+

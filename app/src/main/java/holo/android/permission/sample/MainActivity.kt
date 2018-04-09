@@ -3,16 +3,13 @@ package holo.android.permission.sample
 import android.Manifest
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.Toast
 import halo.android.permission.HoloPermission
-import halo.android.permission.request.Action
-import halo.android.permission.request.RationaleRender
-import halo.android.permission.request.SettingRender
+import halo.android.permission.request.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,53 +18,53 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun btn{
-        HoloPermission.with(this)
-                .setPermissions("", "")
-                .setGrandAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
-
-                    }
-                })
-                .setDenyAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
-
-                    }
-                })
-                .setRationaleRender(object : RationaleRender {
-                    override fun show(ctx: Context, permission: List<String>, process: RationaleRender.Process) {
-                        process.onNext()
-
-                        process.onCancel()
-                    }
-
-                })
-                .setSettingRender(object : SettingRender {
-                    override fun getCustomSettingIntent(ctx: Context): Intent? = null
-
-                    override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
-                        process.onNext()
-
-                        process.onCancel()
-                    }
-
-                })
-                .build()
-                .invoke()
-
-    }
+//    fun btn{
+//        HoloPermission.with(this)
+//                .setPermissions("", "")
+//                .setGrandAction(object : DenyAction {
+//                    override fun onPermissionDenied(permissions: List<String>) {
+//
+//                    }
+//                })
+//                .setDenyAction(object : DenyAction {
+//                    override fun onPermissionDenied(permissions: List<String>) {
+//
+//                    }
+//                })
+//                .setRationaleRender(object : RationaleRender {
+//                    override fun show(ctx: Context, permission: List<String>, process: RationaleRender.Process) {
+//                        process.onNext()
+//
+//                        process.onCancel()
+//                    }
+//
+//                })
+//                .setSettingRender(object : SettingRender {
+//                    override fun getCustomSettingIntent(ctx: Context): Intent? = null
+//
+//                    override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
+//                        process.onNext()
+//
+//                        process.onCancel()
+//                    }
+//
+//                })
+//                .build()
+//                .onPermissionDenied()
+//
+//    }
 
     fun btn1Click(v: View?) {
         HoloPermission.with(this)
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .setGrandAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
+                .setGrandAction(object : GrandAction {
+                    override fun onPermissionGrand(permissions: List<String>) {
                         toast("允许读写外部存储")
                     }
 
                 })
-                .setDenyAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
+                .setDenyAction(object : DenyAction {
+                    override fun onPermissionDenied(permissions: List<String>) {
                         toast("不允许读写外部存储")
                     }
                 })
@@ -79,16 +76,15 @@ class MainActivity : AppCompatActivity() {
     fun btn2Click(v: View?) {
         HoloPermission.with(this)
                 .setPermissions(Manifest.permission.CALL_PHONE)
-                .setGrandAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
+                .setListener(object : PermissionListener {
+                    override fun onPermissionDenied(permissions: List<String>) {
+                        toast("不允许打电话")
+                    }
+
+                    override fun onPermissionGrand(permissions: List<String>) {
                         toast("允许打电话")
                     }
 
-                })
-                .setDenyAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
-                        toast("不允许打电话")
-                    }
                 })
                 .setRationaleRender(object : RationaleRender {
                     override fun show(ctx: Context, permission: List<String>, process: RationaleRender.Process) {
@@ -119,15 +115,15 @@ class MainActivity : AppCompatActivity() {
     fun btn3Click(v: View?) {
         HoloPermission.with(this)
                 .setPermissions(Manifest.permission.READ_CONTACTS)
-                .setGrandAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
-                        toast("允许读取联系人")
+                .setGrandAction(object : GrandAction {
+                    override fun onPermissionGrand(permissions: List<String>) {
+                        toast("不允许读取联系人")
                     }
 
                 })
-                .setDenyAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
-                        toast("不允许读取联系人")
+                .setDenyAction(object : DenyAction {
+                    override fun onPermissionDenied(permissions: List<String>) {
+
                     }
                 })
                 .setSettingRender(object : SettingRender {
@@ -157,14 +153,14 @@ class MainActivity : AppCompatActivity() {
     fun btn4Click(v: View?) {
         HoloPermission.with(this)
                 .setPermissions(Manifest.permission.CAMERA)
-                .setGrandAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
+                .setGrandAction(object : GrandAction {
+                    override fun onPermissionGrand(permissions: List<String>) {
                         toast("允许使用照相机")
                     }
 
                 })
-                .setDenyAction(object : Action {
-                    override fun invoke(permissions: List<String>) {
+                .setDenyAction(object : DenyAction {
+                    override fun onPermissionDenied(permissions: List<String>) {
                         toast("不允许使用照相机")
                     }
                 })
@@ -190,26 +186,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 })
-                .setSettingRender(object : SettingRender {
-                    override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
-                        AlertDialog.Builder(this@MainActivity)
-                                .setMessage("无法使用相机，请设置，否则无法正常使用该功能。")
-                                .setPositiveButton("设置", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext(true)
-                                    }
-
-                                })
-                                .setNegativeButton("拒绝", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onCancel()
-                                    }
-                                })
-                                .setOnCancelListener {
-                                    process.onCancel()
-                                }.show()
-                    }
-                })
+                .setSettingRender("无法使用相机，请设置，否则无法正常使用该功能。")
                 .build()
                 .invoke()
     }
