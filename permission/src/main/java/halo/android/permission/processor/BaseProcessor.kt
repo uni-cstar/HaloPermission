@@ -183,7 +183,7 @@ abstract class BaseProcessor(override val request: Request,
             } else {
                 notifyPermissionFailed()
             }
-        }
+        } 
     }
 
     /**

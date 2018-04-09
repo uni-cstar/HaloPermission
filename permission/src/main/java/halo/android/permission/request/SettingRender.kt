@@ -20,7 +20,7 @@ interface SettingRender {
 
     interface Process {
 
-        fun onNext(autoCheckWhenSettingResult: Boolean)
+        fun onNext(autoCheckWhenSettingResult: Boolean = true)
 
         fun onCancel()
     }
