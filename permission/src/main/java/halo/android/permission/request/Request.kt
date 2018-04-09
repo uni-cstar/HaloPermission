@@ -107,7 +107,5 @@ class Request(val permissionContext: PermissionContext) {
     /**
      * 立即执行
      */
-    fun run() {
-        build().invoke()
-    }
+    fun run() = build().invoke()
 }
