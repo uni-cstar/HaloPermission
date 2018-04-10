@@ -56,9 +56,9 @@ Android Runtime Permission
            .setSettingRender("{Ask user to setting the permission for your app}")
            .run()
    ```
-    
-查看**Wiki**了解更多
-    
+    
+**[查看详细使用](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)**
+
 ### License
     
     ```
