@@ -62,7 +62,7 @@ Android Runtime Permission
            .run()
    ```
     
-**Look at Wiki for more**
+**[For More](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)**
     
 ### License
     
