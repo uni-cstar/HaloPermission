@@ -97,7 +97,15 @@ class Request(val permissionContext: PermissionContext) {
     }
 
     fun build(): PermissionProcessor {
-        return build(StandardChecker(), ActivityPermissionCaller())
+        return build(StandardChecker())
+    }
+
+    fun build(checker: PermissionChecker): PermissionProcessor {
+        return build(checker, ActivityPermissionCaller())
+    }
+
+    fun build(caller: PermissionCaller): PermissionProcessor {
+        return build(StandardChecker(), caller)
     }
 
     fun build(checker: PermissionChecker, caller: PermissionCaller): PermissionProcessor {
@@ -108,4 +116,8 @@ class Request(val permissionContext: PermissionContext) {
      * 立即执行
      */
     fun run() = build().invoke()
+
+    fun run(checker: PermissionChecker) = build(checker).invoke()
+
+    fun run(caller:PermissionCaller) = build(caller).invoke()
 }
