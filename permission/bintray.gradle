@@ -1,0 +1,99 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+def proj_version = '0.9-beta'
+def proj_artifact_id = 'permission'
+def proj_group = 'halo.android'
+def proj_pom_name = 'Android Permission'
+def proj_website_url = 'https://github.com/SupLuo/HoloPermission'
+def proj_vcs_url = 'https://github.com/SupLuo/HoloPermission.git'
+
+
+group = proj_group
+version = proj_version
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                groupId proj_group
+                artifactId proj_artifact_id
+                version proj_version
+                packaging 'aar'
+                name proj_pom_name
+                url proj_website_url
+
+                licenses {
+                    license {
+                        name properties.getOrDefault('PROJ_LICENCE_NAME','')
+                        url properties.getOrDefault('PROJ_LICENCE_URL','')
+                        distribution properties.getOrDefault('PROJ_LICENCE_DEST','')
+                    }
+                }
+
+                developers {
+                    developer {
+                        id properties.getOrDefault('DEVELOPER_ID','')
+                        name properties.getOrDefault('DEVELOPER_NAME','')
+                        email properties.getOrDefault('DEVELOPER_EMAIL','')
+                    }
+                }
+
+                scm {
+                    connection proj_vcs_url
+                    developerConnection proj_vcs_url
+                    url proj_website_url
+                }
+
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+}
+
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = proj_artifact_id               // project name in jcenter
+        websiteUrl = proj_website_url
+        vcsUrl = proj_vcs_url
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}

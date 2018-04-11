@@ -27,3 +27,5 @@ dependencies {
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
+apply from:'./bintray.gradle'
+

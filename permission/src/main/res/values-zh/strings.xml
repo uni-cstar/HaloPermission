@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="setting_render_cancel_text">取消</string>
     <string name="setting_render_confirm_text">设置</string>
     <string name="rationale_render_confirm_text">好的</string>

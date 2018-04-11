@@ -121,11 +121,11 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 })
-                .setDenyAction(object : DenyAction {
-                    override fun onPermissionDenied(permissions: List<String>) {
-
-                    }
-                })
+//                .setDenyAction(object : DenyAction {
+//                    override fun onPermissionDenied(permissions: List<String>) {
+//
+//                    }
+//                })
                 .setSettingRender(object : SettingRender {
                     override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
                         AlertDialog.Builder(this@MainActivity)
@@ -146,8 +146,7 @@ class MainActivity : AppCompatActivity() {
                                 }.show()
                     }
                 })
-                .build()
-                .invoke()
+                .run()
     }
 
     fun btn4Click(v: View?) {
@@ -176,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                                 })
                                 .setNegativeButton("不了", object : DialogInterface.OnClickListener {
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
+                                        process.onCancel()
                                     }
                                 })
                                 .setOnCancelListener {
@@ -187,8 +186,7 @@ class MainActivity : AppCompatActivity() {
 
                 })
                 .setSettingRender("无法使用相机，请设置，否则无法正常使用该功能。")
-                .build()
-                .invoke()
+                .run()
     }
 
     fun toast(msg: String) {

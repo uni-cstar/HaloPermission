@@ -1,5 +1,6 @@
 package halo.android.permission.request
 
+import halo.android.permission.R
 import halo.android.permission.caller.ActivityPermissionCaller
 import halo.android.permission.caller.PermissionCaller
 import halo.android.permission.checker.PermissionChecker
@@ -46,7 +47,9 @@ class Request(val permissionContext: PermissionContext) {
     /**
      * 使用对话框形式引导用户
      */
-    fun setRationaleRender(msg: String, title: String? = null, okText: String = "OK", cancelText: String? = null): Request {
+    fun setRationaleRender(msg: String, title: String? = null,
+                           okText: String = "OK",
+                           cancelText: String? = null): Request {
         mRationaleRender = DefaultRationaleRender(msg, title, okText, cancelText)
         return this
     }
@@ -63,7 +66,9 @@ class Request(val permissionContext: PermissionContext) {
     /**
      * 使用对话框的形式引导用户
      */
-    fun setSettingRender(msg: String, title: String? = null, okText: String = "OK", cancelText: String? = null): Request {
+    fun setSettingRender(msg: String, title: String? = null,
+                         okText: String = getContext().getString(R.string.setting_render_confirm_text),
+                         cancelText: String? = getContext().getString(R.string.setting_render_cancel_text)): Request {
         mSettingRender = DefaultSettingRender(msg, title, okText, cancelText)
         return this
     }
@@ -119,5 +124,5 @@ class Request(val permissionContext: PermissionContext) {
 
     fun run(checker: PermissionChecker) = build(checker).invoke()
 
-    fun run(caller:PermissionCaller) = build(caller).invoke()
+    fun run(caller: PermissionCaller) = build(caller).invoke()
 }

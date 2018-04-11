@@ -2,12 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="halo.android.permission">
 
-    <application
-        android:allowBackup="true"
-        android:label="@string/app_name"
-        android:supportsRtl="true">
-        <activity android:name=".caller.PermissionRequestActivity"></activity>
-        <activity android:name=".setting.SettingRequestActivity"></activity>
+    <application>
+        <activity
+            android:name=".caller.PermissionRequestActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".setting.SettingRequestActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>
