@@ -18,58 +18,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-//    fun btn{
-//        HoloPermission.with(this)
-//                .setPermissions("", "")
-//                .setGrandAction(object : DenyAction {
-//                    override fun onPermissionDenied(permissions: List<String>) {
-//
-//                    }
-//                })
-//                .setDenyAction(object : DenyAction {
-//                    override fun onPermissionDenied(permissions: List<String>) {
-//
-//                    }
-//                })
-//                .setRationaleRender(object : RationaleRender {
-//                    override fun show(ctx: Context, permission: List<String>, process: RationaleRender.Process) {
-//                        process.onNext()
-//
-//                        process.onCancel()
-//                    }
-//
-//                })
-//                .setSettingRender(object : SettingRender {
-//                    override fun getCustomSettingIntent(ctx: Context): Intent? = null
-//
-//                    override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
-//                        process.onNext()
-//
-//                        process.onCancel()
-//                    }
-//
-//                })
-//                .build()
-//                .onPermissionDenied()
-//
-//    }
 
     fun btn1Click(v: View?) {
-        HoloPermission.with(this)
-                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .setGrandAction(object : GrandAction {
+
+        HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .setListener(object:PermissionListener{
+                    override fun onPermissionDenied(permissions: List<String>) {
+                        toast("不允许读写外部存储")
+                    }
+
                     override fun onPermissionGrand(permissions: List<String>) {
                         toast("允许读写外部存储")
                     }
 
                 })
-                .setDenyAction(object : DenyAction {
-                    override fun onPermissionDenied(permissions: List<String>) {
-                        toast("不允许读写外部存储")
-                    }
-                })
-                .build()
-                .invoke()
+                .run()
     }
 
 
@@ -86,28 +49,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 })
-                .setRationaleRender(object : RationaleRender {
-                    override fun show(ctx: Context, permission: List<String>, process: RationaleRender.Process) {
-                        AlertDialog.Builder(this@MainActivity)
-                                .setMessage("接下来请允许程序使用打电话权限，否则无法正常使用该功能。")
-                                .setPositiveButton("好的", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
-                                    }
-
-                                })
-                                .setNegativeButton("不了", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
-                                    }
-                                })
-                                .setOnCancelListener {
-                                    process.onCancel()
-                                }.show()
-
-                    }
-
-                })
+                .setRationaleRender("为保障功能的正常使用，请允许程序使用打电话功能。")
                 .build()
                 .invoke()
     }
@@ -117,15 +59,15 @@ class MainActivity : AppCompatActivity() {
                 .setPermissions(Manifest.permission.READ_CONTACTS)
                 .setGrandAction(object : GrandAction {
                     override fun onPermissionGrand(permissions: List<String>) {
-                        toast("不允许读取联系人")
+
                     }
 
                 })
-//                .setDenyAction(object : DenyAction {
-//                    override fun onPermissionDenied(permissions: List<String>) {
-//
-//                    }
-//                })
+                .setDenyAction(object : DenyAction {
+                    override fun onPermissionDenied(permissions: List<String>) {
+                        toast("允许读取联系人")
+                    }
+                })
                 .setSettingRender(object : SettingRender {
                     override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
                         AlertDialog.Builder(this@MainActivity)

@@ -20,7 +20,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 2.在使用HaloPermission的Module的build.gradle中添加以下依赖：
 ```
     dependencies {
-        compile('halo.android:permission:0.9-rc')
+        compile('halo.android:permission:0.9-rc@aar')
     }
 
 ```

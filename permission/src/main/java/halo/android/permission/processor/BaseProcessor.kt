@@ -46,13 +46,11 @@ abstract class BaseProcessor(override val request: Request,
      * 校验请求
      */
     override fun invoke() {
-        invoke(false)
+        start()
     }
 
-    /**
-     * 是否忽略检查RationalePermission：用于在设置权限界面关闭之后，重新校验权限，但不用再次询问Rationale部分的处理
-     */
-    fun invoke(ignoreRationalCheck: Boolean) {
+
+    private fun start() {
         val permissions = request.getPermissions()
 
         mDenidPermissons.clear()
@@ -62,19 +60,15 @@ abstract class BaseProcessor(override val request: Request,
         }
 
         if (mDenidPermissons.isNotEmpty()) {
-            if (ignoreRationalCheck) {
-                requestPermissionsReal()
-            } else {
-                //过滤rationnale权限
-                val rationalePermissions = mDenidPermissons.filter {
-                    request.permissionContext.shouldShowRequestPermissionRationale(it)
-                }
+            //过滤rationnale权限
+            val rationalePermissions = mDenidPermissons.filter {
+                request.permissionContext.shouldShowRequestPermissionRationale(it)
+            }
 
-                if (rationalePermissions.isNotEmpty()) {
-                    notifyRationaleView(rationalePermissions)
-                } else {
-                    requestPermissionsReal()
-                }
+            if (rationalePermissions.isNotEmpty()) {
+                notifyRationaleView(rationalePermissions)
+            } else {
+                requestPermissionsReal()
             }
         } else {
             notifyPermissionSucceed()
@@ -119,9 +113,7 @@ abstract class BaseProcessor(override val request: Request,
             //不为空则显示RationaleView
             rationaleView.show(request.permissionContext.ctx, permissions, mRationaleProcess)
         } else {
-            notifySettingRender()
-//            //为空则视为RationaleView取消流程（因为存在用户无法获取的权限，则回调deny告知客户端）
-//            notifyPermissionFailed(mDenidPermissons)
+            requestPermissionsReal()
         }
     }
 
