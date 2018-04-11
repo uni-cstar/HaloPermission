@@ -73,7 +73,7 @@
 
 #### 3. SettingRender使用
 
-如果你想向用户解释请求权限的原因，你可以使用`setRationaleRender`方法
+对于无法获取权限时，如果你想引导用户打开权限设置界面，你可以使用`setSettingRender`方法
 
 ```
     HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
