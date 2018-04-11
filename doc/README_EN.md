@@ -1,5 +1,5 @@
-## HoloPermission (0.9-beta)
-Android Runtime Permission
+## HoloPermission (0.9-rc)
+An Android permission library developed by Kotlin language with higher extensibility and compatibility
 
 ### Setup
     Soon，please wait.

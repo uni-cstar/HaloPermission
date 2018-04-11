@@ -1,10 +1,36 @@
-## HoloPermission (0.9-beta)
-Android Runtime Permission
+## HoloPermission (0.9-rc)
+An Android permission library developed by Kotlin language with higher extensibility and compatibility.
+
+Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
+
+
 ### Setup
-    最近会发布jcenter，敬请期待
+
+1.在工程(Project)的build.gradle中添加以下语句：
+
+```
+    allprojects {
+        repositories {
+            jcenter()
+            maven {
+                url 'https://dl.bintray.com/supluo/maven'
+            }
+        }
+```
+2.在使用HaloPermission的Module的build.gradle中添加以下依赖：
+```
+    dependencies {
+        compile('halo.android:permission:0.9-rc')
+    }
+
+```
 ### Usage
    
 **[查看详细使用](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)**
+
+### Todo
+* 兼容6.0以下权限处理
+* 补全更多机型的权限设置界面
 
 ### License
     
