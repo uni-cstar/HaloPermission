@@ -20,7 +20,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 2.在使用HaloPermission的Module的build.gradle中添加以下依赖：
 ```
     dependencies {
-        compile('halo.android:permission:0.9-rc@aar')
+        compile('halo.android:permission:0.9-rc')
     }
 
 ```
@@ -28,6 +28,14 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
   
 **[查看详细使用](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)**
 
+### 运行效果图
+由于常规的运行截图比较基础，这里只给出RationaleRender和SettingRender的运行截图
+* 包含SettingRender的效果
+
+    ![image](https://github.com/SupLuo/HaloPermission/tree/master/doc/setting_render.gif)
+* 包含RationaleRender的效果
+
+    ![image](https://github.com/SupLuo/HaloPermission/tree/master/doc/rationale_render.gif)
 ### Todo
 * 兼容6.0以下权限处理
 * 补全更多机型的权限设置界面
