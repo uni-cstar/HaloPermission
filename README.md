@@ -6,7 +6,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 
 ### Setup
 
-1.在工程(Project)的build.gradle中添加以下语句：
+1.在工程(Project)的build.gradle中添加以下语句：（正在申请添加到JCenter，通过之后便可以不用执行此步骤）
 
 ```
     allprojects {

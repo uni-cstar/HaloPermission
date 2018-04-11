@@ -6,7 +6,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 
 ### Setup
 
-1.在工程(Project)的build.gradle中添加以下语句：
+1.在工程(Project)的build.gradle中添加以下语句：（正在申请添加到JCenter，通过之后便可以不用执行此步骤）
 
 ```
     allprojects {
@@ -25,7 +25,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 
 ```
 ### Usage
-   
+  
 **[查看详细使用](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)**
 
 ### Todo
@@ -33,7 +33,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 * 补全更多机型的权限设置界面
 
 ### License
-    
+
     ```
       Copyright (C) 2018 Lucio
 
