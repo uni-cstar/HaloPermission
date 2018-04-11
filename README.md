@@ -32,10 +32,10 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 由于常规的运行截图比较基础，这里只给出RationaleRender和SettingRender的运行截图
 * 包含SettingRender的效果
 
-    ![image](https://github.com/SupLuo/HaloPermission/tree/master/doc/setting_render.gif)
+    ![image](https://github.com/SupLuo/HaloPermission/blob/master/doc/setting_render.gif?raw=true)
 * 包含RationaleRender的效果
 
-    ![image](https://github.com/SupLuo/HaloPermission/tree/master/doc/rationale_render.gif)
+    ![image](https://github.com/SupLuo/HaloPermission/blob/master/doc/rationale_render.gif?raw=true)
 ### Todo
 * 兼容6.0以下权限处理
 * 补全更多机型的权限设置界面
