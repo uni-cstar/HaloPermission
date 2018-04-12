@@ -6,21 +6,10 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 
 ### Setup
 
-1.在工程(Project)的build.gradle中添加以下语句：（正在申请添加到JCenter，通过之后便可以不用执行此步骤）
-
-```
-    allprojects {
-        repositories {
-            jcenter()
-            maven {
-                url 'https://dl.bintray.com/supluo/maven'
-            }
-        }
-```
-2.在使用HaloPermission的Module的build.gradle中添加以下依赖：
+在使用HaloPermission的Module的build.gradle中添加以下依赖：
 ```
     dependencies {
-        compile('halo.android:permission:0.9-rc')
+        compile('halo.android:permission:0.9-rc@aar')
     }
 
 ```
