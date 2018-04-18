@@ -30,6 +30,7 @@ object Util{
      * ps:因为方法可能被很多地方调用，因此不用内联，否则可能增加编译代码
      */
     fun isPermissionGranted(ctx: Context, permission: String): Boolean {
+        Build.VERSION_CODES.BASE
         if (Build.VERSION.SDK_INT >= M) {
             // targetSdkVersion >= Android M, we can use Context#checkSelfPermission
             if (isPermissionTargetVersion(ctx)) {

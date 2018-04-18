@@ -9,6 +9,7 @@ import halo.android.permission.request.RationaleRender
 import halo.android.permission.request.Request
 import halo.android.permission.request.SettingRender
 import halo.android.permission.setting.SettingCaller
+import halo.android.permission.setting.SettingIntent
 import halo.android.permission.setting.SettingPermissionCaller
 import halo.android.permission.setting.SettingResponder
 
@@ -96,13 +97,6 @@ abstract class BaseProcessor(override val request: Request,
         caller.requestPermission(request.getContext(), this, *request.getPermissions())
     }
 
-    /**
-     * 请求权限设置界面
-     */
-    private fun requestSettingReal() {
-        mSettingCaller.requestPermissionSetting(request.getContext(), this)
-    }
-
 
     /**
      * 处理RationaleView
@@ -163,6 +157,10 @@ abstract class BaseProcessor(override val request: Request,
      */
     override fun onSettingResult(sender: RequestContext) {
         sender.finish()
+        notifySettingResult()
+    }
+
+    private fun notifySettingResult(){
         if (autoCheckWhenSettingResult) {
             //过滤被拒绝的权限
             mDenidPermissons.clear()
@@ -175,6 +173,19 @@ abstract class BaseProcessor(override val request: Request,
             } else {
                 notifyPermissionFailed()
             }
+        }
+    }
+
+    /**
+     * 请求权限设置界面
+     */
+    private fun requestSettingReal() {
+        val intent = SettingIntent.getCanResolvedSettingIntent(request.getContext(),
+                request.getSettingRender()?.getCustomSettingIntent(request.getContext()))
+        if(intent != null){
+            mSettingCaller.requestPermissionSetting(request.getContext(), this)
+        }else{
+            notifySettingResult()
         }
     }
 
@@ -214,9 +225,7 @@ abstract class BaseProcessor(override val request: Request,
      */
     private val mSettingProcess: SettingRender.Process by lazy {
 
-
         object : SettingRender.Process {
-
 
             /**
              * RationaleView回调 下一步

@@ -35,19 +35,14 @@ class SettingRequestActivity : BaseRequestActivity() {
 
 
     override fun onCreateInit() {
-        var settingIntent = mResponder?.getCustomSettingIntent(this)
-        if(settingIntent == null){
-            settingIntent = SettingIntent.obtainSettingIntent(this)
+        val settingIntent = SettingIntent.getCanResolvedSettingIntent(this, mResponder?.getCustomSettingIntent(this))
+        if (settingIntent != null) {
+            startActivityForResult(settingIntent, REQUEST_CODE)
+        } else {
+            //无法打开设置界面，回调以便继续后面流程
+            Log.e("SettingRequestActivity", "no activity can handle this intent $settingIntent")
+            notifySettingResult()
         }
-
-        if(settingIntent.resolveActivity(packageManager) == null){
-            settingIntent = SettingIntent.default(this)
-        }
-
-        if(settingIntent.resolveActivity(packageManager) == null){
-            Log.e("SettingRequestActivity","no activity can handle this intent $settingIntent")
-        }
-        startActivityForResult(settingIntent, REQUEST_CODE)
     }
 
 
@@ -62,7 +57,7 @@ class SettingRequestActivity : BaseRequestActivity() {
         }
     }
 
-    private fun notifySettingResult(){
+    private fun notifySettingResult() {
         mResponder?.onSettingResult(this)
     }
 }

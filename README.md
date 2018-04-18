@@ -24,6 +24,12 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
     }
 
 ```
+
+### Features
+* 支持RationaleRender
+* 支持SettingRender（支持打开权限设置界面，并自动检测设置是否改变）
+
+
 ### Usage
   
 **[查看详细使用](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)**
@@ -39,6 +45,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 ### Todo
 * 兼容6.0以下权限处理
 * 补全更多机型的权限设置界面
+* 安全软件中的权限管理
 
 ### License
 
