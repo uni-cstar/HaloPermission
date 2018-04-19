@@ -13,6 +13,7 @@ import halo.android.permission.common.BaseRequestActivity
 class SettingRequestActivity : BaseRequestActivity() {
 
 
+
     companion object {
 
         //静态属性  权限请求结果回调

@@ -4,7 +4,6 @@
  */
 package halo.android.permission.setting
 
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -26,26 +25,45 @@ import java.io.InputStreamReader
  */
 object SettingIntent {
 
+    const val MF_HUAWEI = "huawei"
+    const val MF_XIAOMI = "xiaomi"
+    const val MF_OPPO = "oppo"
+    const val MF_VIVO = "vivo"
+    const val MF_SAMSUNG = "samsung"
+    const val MF_MEIZU = "meizu"
+    const val MF_SMARTISAN = "smartisan"
+    const val MF_SONY = "sony"
+    const val MF_LETV = "letv"
+    const val MF_LG = "lg"
+
     fun obtainSettingIntent(ctx: Context): Intent {
         //获取设备制造商,缺陷：如果用于将手机刷机，比如使用华为的手机刷机小米的系统，这种情况得到的判断可能有误
-        val mark = Build.MANUFACTURER.toLowerCase()
-        if (mark.contains("huawei")) {
+        val mf = Build.MANUFACTURER.toLowerCase()
+        if (mf.contains(MF_HUAWEI)) {
             return huawei(ctx)
-        } else if (mark.contains("xiaomi")) {
+        } else if (mf.contains(MF_XIAOMI)) {
             return xiaomi(ctx)
-        } else if (mark.contains("oppo")) {
+        } else if (mf.contains(MF_OPPO)) {
             return oppo(ctx)
-        } else if (mark.contains("vivo")) {
+        } else if (mf.contains(MF_VIVO)) {
             return vivo(ctx)
-        } else if (mark.contains("samsung")) {
+        } else if (mf.contains(MF_SAMSUNG)) {
             return samsung(ctx)
-        } else if (mark.contains("meizu")) {
+        } else if (mf.contains(MF_MEIZU)) {
             return meizu(ctx)
-        } else if (mark.contains("smartisan")) {
+        } else if (mf.contains(MF_SMARTISAN)) {
             return smartisan(ctx)
+        } else if (mf.contains(MF_SONY)) {
+            return sony(ctx)
+        } else if (mf.contains(MF_LETV)) {
+            return letv(ctx)
+        } else if (mf.contains(MF_LG)) {
+            return lg(ctx)
+        } else {
+            return default(ctx)
         }
-        return default(ctx)
     }
+
 
     /**
      * 获取能够被正常处理的SettingIntent
@@ -144,8 +162,12 @@ object SettingIntent {
         return intent
     }
 
-    private fun oppo(context: Context): Intent {
-        return default(context)
+    private fun oppo(ctx: Context): Intent {
+//        val intent = Intent()
+//        intent.putExtra("packageName", ctx.packageName)
+//        intent.setClassName("com.coloros.safecenter", "com.coloros.safecenter.permission.PermissionManagerActivity");
+//        return intent
+        return default(ctx)
     }
 
     private fun meizu(context: Context): Intent {
@@ -155,7 +177,7 @@ object SettingIntent {
 
         val intent = Intent("com.meizu.safe.security.SHOW_APPSEC")
         intent.putExtra("packageName", context.packageName)
-        intent.component = ComponentName("com.meizu.safe", "com.meizu.safe.security.AppSecActivity")
+        intent.setClassName("com.meizu.safe", "com.meizu.safe.security.AppSecActivity")
         return intent
     }
 
@@ -166,6 +188,40 @@ object SettingIntent {
 
     private fun samsung(context: Context): Intent {
         return default(context)
+    }
+
+    /**
+     * 索尼
+     */
+    private fun sony(ctx: Context): Intent {
+        val intent = Intent()
+        intent.putExtra("packageName", ctx.packageName)
+        intent.setClassName("com.sonymobile.cta", "com.sonymobile.cta.SomcCTAMainActivity")
+        return intent
+    }
+
+    /**
+     * 乐视
+     */
+    private fun letv(ctx: Context): Intent {
+        val intent = Intent()
+        intent.putExtra("packageName", ctx.packageName)
+        intent.setClassName("com.letv.android.letvsafe", "com.letv.android.letvsafe.PermissionAndApps")
+        return intent
+    }
+
+    private fun lg(ctx: Context): Intent {
+        val intent = Intent("android.intent.action.MAIN")
+        intent.putExtra("packageName", ctx.packageName)
+        intent.setClassName("com.android.settings", "com.android.settings.Settings'$'AccessLockSummaryActivity")
+        return intent
+    }
+
+    private fun qihoo360(ctx: Context): Intent {
+        val intent = Intent("android.intent.action.MAIN")
+        intent.putExtra("packageName", ctx.packageName)
+        intent.setClassName("com.qihoo360.mobilesafe", "com.qihoo360.mobilesafe.ui.index.AppEnterActivity");
+        return intent
     }
 
     /**

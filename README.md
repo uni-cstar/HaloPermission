@@ -17,6 +17,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 ### Features
 * 支持RationaleRender
 * 支持SettingRender（支持打开权限设置界面，并自动检测设置是否改变）
+* 尽可能兼容的打开系统权限设置界面
 
 
 ### Usage
