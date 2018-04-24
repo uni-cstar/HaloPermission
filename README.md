@@ -1,4 +1,4 @@
-![](https://img.shields.io/github/release/SupLuo/HaloPermission.svg)
+![](https://img.shields.io/badge/release-0.9--rc-blue.svg)
 ![](https://img.shields.io/github/license/SupLuo/HaloPermission.svg)
 ## HoloPermission
 An Android permission library developed by Kotlin language with higher extensibility and compatibility.
