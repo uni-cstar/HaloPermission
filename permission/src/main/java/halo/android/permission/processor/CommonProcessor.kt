@@ -24,7 +24,7 @@ open class CommonProcessor(request: Request,
         return checker.isPermissionGranted(ctx, permission)
     }
 
-    override fun isPermissionGrantedForPermissionResult(ctx: Context, permission: String): Boolean {
+    override fun isPermissionGrantedForPermissionResultCheck(ctx: Context, permission: String): Boolean {
         return checker.isPermissionGranted(ctx, permission)
     }
 

@@ -41,7 +41,7 @@ abstract class BaseProcessor(override val request: Request,
      * 用于[onPermissionResult]方法中判断权限是否被允许，即用于校验请求系统之后，权限是否被允许
      * @see [onPermissionResult]
      */
-    protected abstract fun isPermissionGrantedForPermissionResult(ctx: Context, permission: String): Boolean
+    protected abstract fun isPermissionGrantedForPermissionResultCheck(ctx: Context, permission: String): Boolean
 
     /**
      * 校验请求
@@ -142,7 +142,7 @@ abstract class BaseProcessor(override val request: Request,
         sender.finish()
         //过滤被拒绝的权限
         val denyPermissions = permissions?.filter {
-            !isPermissionGrantedForPermissionResult(request.getContext(), it)
+            !isPermissionGrantedForPermissionResultCheck(request.getContext(), it)
         }
 
         if (denyPermissions == null || denyPermissions.isEmpty()) {
@@ -165,7 +165,7 @@ abstract class BaseProcessor(override val request: Request,
             //过滤被拒绝的权限
             mDenidPermissons.clear()
             request.getPermissions().filterTo(mDenidPermissons) {
-                !isPermissionGrantedForPermissionResult(request.getContext(), it)
+                !isPermissionGrantedForPermissionResultCheck(request.getContext(), it)
             }
 
             if (mDenidPermissons.isEmpty()) {

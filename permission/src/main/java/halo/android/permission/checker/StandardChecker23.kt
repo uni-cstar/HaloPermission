@@ -5,16 +5,12 @@
 package halo.android.permission.checker
 
 import android.content.Context
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.support.v4.app.AppOpsManagerCompat
 import halo.android.permission.common.Util
 
-
 /**
- * 标准权限判断 + 安全软件权限检测
+ * 标准权限判断 + "application operation"
  */
-@RequiresApi(Build.VERSION_CODES.M)
 class StandardChecker23 : PermissionChecker {
 
     override fun isPermissionGranted(ctx: Context, permission: String): Boolean {

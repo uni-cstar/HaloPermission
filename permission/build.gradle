@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion rootProject.ext.build_tools_version
 
     defaultConfig {
         minSdkVersion 10
@@ -23,8 +23,8 @@ android {
 }
 
 dependencies {
-    provided "com.android.support:appcompat-v7:$support_version"
-    provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly "com.android.support:appcompat-v7:$support_version"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 apply from:'./bintray.gradle'
