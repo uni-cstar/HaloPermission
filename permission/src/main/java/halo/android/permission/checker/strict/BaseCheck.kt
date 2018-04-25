@@ -63,8 +63,11 @@ abstract class BaseCheck(val ctx: Context) {
                             cursor.getString(0)
                         }
                     }
+                    return true
+                } else {
+                    //count=0 可能是因为用户拒绝权限，也可能是用户数据真的为空，但考虑实际情况数据很少为空，所以为0视为没有权限，不为0视为有权限但移动cursor出错
+                    return cursor.count != 0
                 }
-                return true
             } catch (e: Exception) {
                 e.printStackTrace()
                 return false  // cause exception when read,regard as read failed
