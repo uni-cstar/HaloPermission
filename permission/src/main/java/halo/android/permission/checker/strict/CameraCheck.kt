@@ -13,19 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package halo.android.permission.checker.strict
 
 import android.content.Context
+import android.hardware.Camera
 
 /**
- * Created by Lucio on 18/4/24.
- * 权限检测，默认返回true
+ * Created by Lucio on 18/4/25.
  */
+class CameraCheck(ctx: Context) : BaseCheck(ctx) {
 
-class TrueCheck(ctx: Context) : BaseCheck(ctx) {
-    override fun check(): Boolean {
-        return true
+    override fun check(): Boolean = tryCheck {
+        var canUse = false
+        var mCamera: Camera? = null
+
+        try {
+            mCamera = Camera.open(0)
+            val mParameters = mCamera!!.parameters
+            mCamera.parameters = mParameters
+        } catch (e: Exception) {
+            canUse = false
+        }
+
+        if (mCamera != null) {
+            mCamera.release()
+            canUse = true
+        }
+        return canUse
     }
-
 }

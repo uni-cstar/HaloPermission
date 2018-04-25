@@ -36,6 +36,13 @@ abstract class BaseCheck(val ctx: Context) {
         }
     }
 
+    protected inline fun tryIgnore(block: () -> Unit) {
+        try {
+            block()
+        } catch (e: Exception) {
+        }
+    }
+
     protected fun tryReadCursorData(cursor: Cursor?): Boolean {
         if (cursor != null) {
             try {

@@ -19,7 +19,7 @@ package halo.android.permission.checker.strict
 import android.content.Context
 import android.provider.CallLog
 import android.support.annotation.RequiresPermission
-import halo.android.permission.common.Permissions
+import halo.android.permission.checker.StrictChecker
 
 /**
  * Created by Lucio on 18/4/24.
@@ -27,7 +27,7 @@ import halo.android.permission.common.Permissions
  */
 class ReadCallLogCheck(ctx: Context) : BaseCheck(ctx) {
 
-    @RequiresPermission(Permissions.READ_CALL_LOG)
+    @RequiresPermission(StrictChecker.READ_CALL_LOG)
     override fun check(): Boolean = tryCheck {
         //        if (Build.VERSION.SDK_INT < 16)
 //            return@tryCheck true

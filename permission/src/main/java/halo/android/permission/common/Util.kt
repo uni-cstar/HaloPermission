@@ -12,14 +12,15 @@ import android.support.v4.content.PermissionChecker
  * Created by Lucio on 18/4/8.
  */
 
-object Util{
+object Util {
 
     //23版本以下的没有[Build.VERSION_CODES.M]变量
-     const val M = 23
-    
+    const val M = 23
+
     /**
      * 是否需要进行权限处理（目标版本是否是23及以上）
      */
+    @JvmStatic
     fun isPermissionTargetVersion(ctx: Context): Boolean {
         val packInfo = ctx.packageManager.getPackageInfo(ctx.packageName, 0)
         return packInfo.applicationInfo.targetSdkVersion >= M
@@ -29,6 +30,7 @@ object Util{
      * 权限是否被允许
      * ps:因为方法可能被很多地方调用，因此不用内联，否则可能增加编译代码
      */
+    @JvmStatic
     fun isPermissionGranted(ctx: Context, permission: String): Boolean {
         if (Build.VERSION.SDK_INT >= M) {
             // targetSdkVersion >= Android M, we can use Context#checkSelfPermission
@@ -51,6 +53,7 @@ object Util{
      * @param permission 权限
      * @exception IllegalArgumentException 如果传递的permission是当前设备无法识别的权限则会抛出 java.lang.IllegalArgumentException: Unknown permission: [permission]
      */
+    @JvmStatic
     @Throws(IllegalArgumentException::class)
     fun shouldShowRequestPermissionRationale(ctx: Context, permission: String): Boolean {
         if (ctx is Activity) {
@@ -68,6 +71,7 @@ object Util{
         }
     }
 
+    @JvmStatic
     fun shouldShowRequestPermissionRationale(fragment: android.app.Fragment, permission: String): Boolean {
         if (Build.VERSION.SDK_INT >= M) {
             return fragment.shouldShowRequestPermissionRationale(permission)
@@ -75,6 +79,7 @@ object Util{
         return false
     }
 
+    @JvmStatic
     fun shouldShowRequestPermissionRationale(fragment: android.support.v4.app.Fragment, permission: String): Boolean {
         if (Build.VERSION.SDK_INT >= M) {
             return fragment.shouldShowRequestPermissionRationale(permission)
@@ -91,6 +96,7 @@ object Util{
      *
      * @return 权限是否被政策限制: Whether the permission is restricted by policy.
      */
+    @JvmStatic
     @Deprecated(message = "不知道具体使用场景")
     fun isPermissionRevoked(ctx: Context, permission: String): Boolean {
         if (Build.VERSION.SDK_INT >= M) {
@@ -99,4 +105,5 @@ object Util{
         // For Android < Android M, 默认权限没有被政策限制
         return false
     }
+
 }

@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.ext.build_tools_version
     defaultConfig {
         applicationId "holo.android.permission.sample"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,6 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
 
-//    compile project(':permission')
-    implementation('halo.android:permission:0.9-rc@aar')
+    implementation project(':permission')
+//    implementation('halo.android:permission:0.9-rc@aar')
 }

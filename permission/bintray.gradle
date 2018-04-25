@@ -5,8 +5,8 @@ def proj_version = '0.9-rc'
 def proj_artifact_id = 'permission'
 def proj_group = 'halo.android'
 def proj_pom_name = 'Android Permission'
-def proj_website_url = 'https://github.com/SupLuo/HoloPermission'
-def proj_vcs_url = 'https://github.com/SupLuo/HoloPermission.git'
+def proj_website_url = 'https://github.com/SupLuo/HaloPermission'
+def proj_vcs_url = 'https://github.com/SupLuo/HaloPermission.git'
 
 
 group = proj_group

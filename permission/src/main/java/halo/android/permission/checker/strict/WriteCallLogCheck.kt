@@ -22,7 +22,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.provider.CallLog
 import android.support.annotation.RequiresPermission
-import halo.android.permission.common.Permissions
+import halo.android.permission.checker.StrictChecker
 
 /**
  * Created by Lucio on 18/4/24.
@@ -34,10 +34,11 @@ class WriteCallLogCheck(ctx: Context) : BaseCheck(ctx) {
     private val testNumber = "1"
     private val testDate = System.currentTimeMillis()
 
-    @RequiresPermission(Permissions.WRITE_CALL_LOG)
+    @RequiresPermission(StrictChecker.WRITE_CALL_LOG)
     override fun check(): Boolean = tryCheck {
         val contentResolver: ContentResolver = ctx.contentResolver
         try {
+            //插入测试数据
             val content = ContentValues()
             content.put(CallLog.Calls.TYPE, CallLog.Calls.INCOMING_TYPE)
             content.put(CallLog.Calls.NUMBER, testNumber)
@@ -46,6 +47,7 @@ class WriteCallLogCheck(ctx: Context) : BaseCheck(ctx) {
             val resourceUri = contentResolver.insert(CallLog.Calls.CONTENT_URI, content)
             return ContentUris.parseId(resourceUri) > 0
         } finally {
+            //删除测试数据
             contentResolver.delete(CallLog.Calls.CONTENT_URI, CallLog.Calls.NUMBER + "=?", arrayOf(testNumber))
         }
     }

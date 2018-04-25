@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import halo.android.permission.HoloPermission
+import halo.android.permission.HaloPermission
 import halo.android.permission.request.*
 import java.io.File
 import java.io.FileInputStream
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     fun btn1Click(v: View?) {
 
-        HoloPermission.with(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        HaloPermission.with(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .setListener(object : PermissionListener {
                     override fun onPermissionDenied(permissions: List<String>) {
                         toast("不允许读写外部存储")
@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 })
-                .run()
+                .run(true)
     }
 
 
     fun btn2Click(v: View?) {
-        HoloPermission.with(this)
+        HaloPermission.with(this)
                 .setPermissions(Manifest.permission.CALL_PHONE)
                 .setListener(object : PermissionListener {
                     override fun onPermissionDenied(permissions: List<String>) {
@@ -74,12 +74,11 @@ class MainActivity : AppCompatActivity() {
 
                 })
                 .setRationaleRender("为保障功能的正常使用，请允许程序使用打电话功能。")
-                .build()
-                .invoke()
+                .run(true)
     }
 
     fun btn3Click(v: View?) {
-        HoloPermission.with(this)
+        HaloPermission.with(this)
                 .setPermissions(Manifest.permission.READ_CONTACTS)
                 .setGrandAction(object : GrandAction {
                     override fun onPermissionGrand(permissions: List<String>) {
@@ -111,11 +110,11 @@ class MainActivity : AppCompatActivity() {
                                 }.show()
                     }
                 })
-                .run()
+                .run(true)
     }
 
     fun btn4Click(v: View?) {
-        HoloPermission.with(this)
+        HaloPermission.with(this)
                 .setPermissions(Manifest.permission.CAMERA)
                 .setGrandAction(object : GrandAction {
                     override fun onPermissionGrand(permissions: List<String>) {
@@ -151,7 +150,7 @@ class MainActivity : AppCompatActivity() {
 
                 })
                 .setSettingRender("无法使用相机，请设置，否则无法正常使用该功能。")
-                .run()
+                .run(true)
     }
 
     fun toast(msg: String) {

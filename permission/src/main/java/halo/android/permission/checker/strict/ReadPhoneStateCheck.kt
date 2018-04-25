@@ -16,23 +16,22 @@
 
 package halo.android.permission.checker.strict
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Environment
-
+import android.support.annotation.RequiresPermission
 
 /**
  * Created by Lucio on 18/4/24.
- * 检测 外置存储是否可读
+ * 检查 日历 读权限
  */
+class ReadPhoneStateCheck(ctx: Context) : BaseCheck(ctx) {
 
-class ReadExternalStorageCheck(ctx: Context) : BaseCheck(ctx) {
-
+    @SuppressLint("HardwareIds")
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     override fun check(): Boolean = tryCheck {
-        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED)
-        // sd卡不存在
-            return true
-
-        val directory = Environment.getExternalStorageDirectory()
-        return directory.exists() && directory.canRead()
+        val service = ctx.getSystemService(Context.TELEPHONY_SERVICE) as android.telephony.TelephonyManager
+        return !service.deviceId.isNullOrEmpty() || !service.subscriberId.isNullOrEmpty()
     }
+
 }

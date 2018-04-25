@@ -1,7 +1,7 @@
 package halo.android.permission.context
 
-import android.content.Context
 import android.app.Fragment
+import android.content.Context
 import android.content.Intent
 import halo.android.permission.common.Util
 

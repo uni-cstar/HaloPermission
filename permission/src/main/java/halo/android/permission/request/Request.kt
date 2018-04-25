@@ -24,6 +24,7 @@ import halo.android.permission.checker.StandardChecker23
 import halo.android.permission.context.PermissionContext
 import halo.android.permission.processor.CommonProcessor
 import halo.android.permission.processor.PermissionProcessor
+import halo.android.permission.processor.StrictProcessor
 import halo.android.permission.setting.DefaultSettingRender
 
 /**
@@ -117,28 +118,34 @@ class Request(val permissionContext: PermissionContext) {
         return this
     }
 
-    fun build(): PermissionProcessor {
-        return build(StandardChecker23())
+    private fun build(isEnableUnder23: Boolean = false): PermissionProcessor {
+        if (isEnableUnder23) {
+            return StrictProcessor(this, ActivityPermissionCaller())
+        } else {
+            return build(StandardChecker23())
+        }
     }
 
-    fun build(checker: PermissionChecker): PermissionProcessor {
+    private fun build(checker: PermissionChecker): PermissionProcessor {
         return build(checker, ActivityPermissionCaller())
     }
 
-    fun build(caller: PermissionCaller): PermissionProcessor {
+    private fun build(caller: PermissionCaller): PermissionProcessor {
         return build(StandardChecker23(), caller)
     }
 
-    fun build(checker: PermissionChecker, caller: PermissionCaller): PermissionProcessor {
+    private fun build(checker: PermissionChecker, caller: PermissionCaller): PermissionProcessor {
         return CommonProcessor(this, checker, caller)
     }
 
     /**
      * 立即执行
      */
-    fun run() = build().invoke()
+    fun run(isEnableUnder23: Boolean = false) = build(isEnableUnder23).invoke()
 
     fun run(checker: PermissionChecker) = build(checker).invoke()
 
     fun run(caller: PermissionCaller) = build(caller).invoke()
+
+    fun run(checker: PermissionChecker, caller: PermissionCaller) = build(checker, caller).invoke()
 }

@@ -30,8 +30,8 @@ class WriteExternalStorageCheck(ctx: Context) : BaseCheck(ctx) {
 
     override fun check(): Boolean = tryCheck {
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED)
-        // sd卡不存在
-            return false
+            // sd卡不存在
+            return true
 
         val directory = Environment.getExternalStorageDirectory()
         if (!directory.exists() || !directory.canWrite())

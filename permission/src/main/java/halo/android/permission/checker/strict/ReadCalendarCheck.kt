@@ -30,7 +30,6 @@ class ReadCalendarCheck(ctx: Context) : BaseCheck(ctx) {
 
     @RequiresPermission(Manifest.permission.READ_CALENDAR)
     override fun check(): Boolean = tryCheck {
-
         if (Build.VERSION.SDK_INT >= 14) {
             val projection = arrayOf(CalendarContract.Calendars._ID, CalendarContract.Calendars.NAME)
             val cursor = ctx.contentResolver.query(CalendarContract.Calendars.CONTENT_URI, projection, null, null, null)

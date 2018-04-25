@@ -4,7 +4,6 @@
 package halo.android.permission.setting
 
 import android.content.Context
-import android.content.Intent
 
 /**
  * 权限请求发起者

@@ -3,8 +3,6 @@ package halo.android.permission.processor
 import android.content.Context
 import halo.android.permission.caller.PermissionCaller
 import halo.android.permission.checker.PermissionChecker
-import halo.android.permission.checker.StandardChecker
-import halo.android.permission.common.RequestContext
 import halo.android.permission.request.Request
 
 /**
