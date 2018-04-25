@@ -12,10 +12,29 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 在使用HaloPermission的Module的build.gradle中添加以下依赖：
 ```
     dependencies {
-        compile('halo.android:permission:0.9-rc@aar')
+        //gradle 3.+以后不是使用'compile'方法，而是使用'implementation' or 'api'等方式
+        compile('halo.android:permission:{latest-version}@aar')
     }
 
 ```
+
+额外配置说明:
+
+1. 配置V7依赖
+
+    HaloPermission依赖`appcompat-v7`包（本身也依赖v4包，但v7依赖v4，所以引入v7即可），
+因此请**在你的工程中配置对`appcompat-v7`的依赖**
+
+2. 配置Kotlin版本一致（不支持Kotlin开发的童鞋可以忽略此条）
+
+    HaloPermission是基于Kotlin 1.2.10开发的，**如果您的工程也支持Kotlin开发，
+并且与HaloPermission所使用的版本不一致**，你可以排除HaloPermission对Kotlin版本库的依赖
+    ```
+    compile('halo.android:permission:{latest-version}@aar', {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+    })
+    ```
+
 
 ### Features
 * 支持RationaleRender
@@ -40,21 +59,9 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 * 补全更多机型的权限设置界面
 * 安全软件中的权限管理
 
-### License
+### 联系方式
+QQ：862638161
+Email:super_luo@163.com
+如需交流，欢迎讨论
 
-```
-  Copyright (C) 2018 Lucio
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-
-```
+最近正在完善HaloPermission 1.0-rc的开发工作
