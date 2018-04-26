@@ -26,9 +26,11 @@ android运行时权限是在6.0之后才提供的，对于以往版本的权限�
 
 
 * 如何处理权限检测结果不准确的问题
-如果通过权限检测得到的结果不准确（即通过 `*.checkSelfPermission`方法检测结果），那么我们可以通过对权限的实际使用来进一步确定权限是否可用，比如`Manifest.permission.WRITE_EXTERNAL_STORAGE`权限，假如我门在外置存储中创建一个文件成功，那说明app是具有`Manifest.permission.WRITE_EXTERNAL_STORAGE`权限的。
+
+    如果通过权限检测得到的结果不准确（即通过 `*.checkSelfPermission`方法检测结果），那么我们可以通过对权限的实际使用来进一步确定权限是否可用，比如`Manifest.permission.WRITE_EXTERNAL_STORAGE`权限，假如我门在外置存储中创建一个文件成功，那说明app是具有`Manifest.permission.WRITE_EXTERNAL_STORAGE`权限的。
 * 支持6.0以前的版本
-由前一个问题的答案可以得出，我们可以通过对权限的实际使用来进一步确定权限授权状态，如果没有被授权则可以打开权限设置界面让用户允许权限。
+
+    由前一个问题的答案可以得出，我们可以通过对权限的实际使用来进一步确定权限授权状态，如果没有被授权则可以打开权限设置界面让用户允许权限。
 
 ## HaloPermission的设计
 HaloPermission在设计上将一个权限请求操作视作为一个流程(Processor)，
@@ -58,7 +60,7 @@ HaloPermission在设计上将一个权限请求操作视作为一个流程(Proce
     目前流程都是基于`BaseProcessor`流程创建，提供了`CommonProcessor`,`StrictProcessor`两个具体的实现。
 
 ## HaloPermission的具体使用
-[请见](https://github.com/SupLuo/HaloPermission/blob/master/doc/README_USAGE.md)
+[查看具体使用](https://github.com/SupLuo/HaloPermission/blob/master/doc/README_USAGE.md)
 
 ## HaloPermission靠谱么
 至于这个问题，我想是需要您综合判断的，对于我而言，我觉得您才是最可靠的。
