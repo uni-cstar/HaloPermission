@@ -1,10 +1,8 @@
 #### 1. 常规使用
 
 * 请求一个权限，然后接收结果回调
-
-
-    ```
-        HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+```
+HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .setListener(object: PermissionListener{
                 override fun onPermissionDenied(permissions: List<String>) {
                     {your code for deny}
@@ -13,30 +11,30 @@
                     {your code for grand}
                 }
             }).run()
-    ```
+```
     
 * 请求多个权限
 
-    ```
-        HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE)
-            .{省略代码}
+```
+    HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE)
+        .{省略代码}
 
-        //or
+    //or
 
-        val permissions:Array<String> = arrayOf("","")
-        HaloPermission.with(this,*permissions)
-            .{省略代码}
-    ```
+    val permissions:Array<String> = arrayOf("","")
+    HaloPermission.with(this,*permissions)
+        .{省略代码}
+```
 * 只关心权限被允许(未被允许)的回调
-    ```
-        HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .setGrandAction(object:GrandAction{
-                override fun onPermissionGrand(permissions: List<String>) {
-                    {your code for grand}
-                }
+```
+    HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        .setGrandAction(object:GrandAction{
+            override fun onPermissionGrand(permissions: List<String>) {
+                {your code for grand}
+            }
 
-            }).run()
-    ```
+        }).run()
+```
 
 
 
