@@ -4,7 +4,7 @@
 
 
     ```
-        HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .setListener(object: PermissionListener{
                 override fun onPermissionDenied(permissions: List<String>) {
                     {your code for deny}
@@ -18,18 +18,18 @@
 * 请求多个权限
 
     ```
-        HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE)
+        HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE)
             .{省略代码}
 
         //or
 
         val permissions:Array<String> = arrayOf("","")
-        HoloPermission.with(this,*permissions)
+        HaloPermission.with(this,*permissions)
             .{省略代码}
     ```
 * 只关心权限被允许(未被允许)的回调
     ```
-        HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .setGrandAction(object:GrandAction{
                 override fun onPermissionGrand(permissions: List<String>) {
                     {your code for grand}
@@ -45,7 +45,7 @@
 如果你想向用户解释请求权限的原因，你可以使用`setRationaleRender`方法
 
 ```
-    HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .{省略回调设置代码}
                     .setRationaleRender("为了确保功能的正常使用，请允许接下来的权限请求申请。")
                     .run()
@@ -54,7 +54,7 @@
 如果你想自定义RationaleRender的样式，比如：
 
 ```
-   HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+   HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .{省略回调设置代码}
                 .setRationaleRender(object:RationaleRender{
                     override fun show(ctx: Context, permission: List<String>, process: RationaleRender.Process) {
@@ -76,7 +76,7 @@
 对于无法获取权限时，如果你想引导用户打开权限设置界面，你可以使用`setSettingRender`方法
 
 ```
-    HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
               .{省略回调设置代码}
               .setSettingRender("无法使用外部存储，请设置权限以便使用。")
               .run()
@@ -85,7 +85,7 @@
 如果你想自定义SettingRender的样式，比如：
 
 ```
-   HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+   HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .{省略回调设置代码}
                 .setSettingRender(object:SettingRender{
                     override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
@@ -105,7 +105,7 @@
 如果你觉得`HaloPermission`打开的权限设置界面不是您所满意的，你可以重写`SettingRender`的`getCustomSettingIntent`方法提供一个`Intent`,如果返回null则将使用HaloPermission的默认方式打开：
 
 ```
-    HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .{省略回调设置代码}
                 .setSettingRender(object:SettingRender{
                     override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
@@ -133,7 +133,7 @@
     }
 
     //2. 使用自定义规则
-    HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
        .{省略常规代码}
        .run(CustomChecker())
 
@@ -157,7 +157,7 @@ Fragment的请求方式，但是最终去掉了这部分的实现，因为对于
    }
 
     //2. 使用自定义规则
-    HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    HaloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
        .{省略常规代码}
        .run(CustomCaller())
 
