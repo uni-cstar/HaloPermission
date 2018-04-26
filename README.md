@@ -36,7 +36,7 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
 
 2. 配置Kotlin
 
-    HaloPermission是基于Kotlin 1.2.10开发的，所以需要您的工程支持Kotlin开发。配置Kotlin并不意味着改变您的开发方式，习惯用Java开发的童鞋可以继续使用Java的，仅仅是需要配置Kotlin支持而已。
+    HaloPermission是基于Kotlin 1.2.10开发的，所以需要您的工程支持Kotlin开发。配置Kotlin并不意味着改变您的开发方式，习惯用Java开发的童鞋可以继续使用Java的，仅仅是需要配置Kotlin支持而已。
 
 ### Usage
   
