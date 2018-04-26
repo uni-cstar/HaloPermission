@@ -32,17 +32,17 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
 
 1. 配置对V7依赖
 
-    HaloPermission依赖`appcompat-v7`包（本身也依赖v4包，但v7依赖v4，所以引入v7即可），考虑您的support包版本一致问题，HaloPermission是以provided(gradle 3.x是compileOnly)的方式依赖v7包。
+    HaloPermission依赖`appcompat-v7`包（本身也依赖v4包，但v7依赖v4，所以引入v7即可），考虑您的support包版本一致问题，HaloPermission是以provided(gradle 3.x是compileOnly)的方式依赖v7包。
 
 2. 配置Kotlin版本一致（不支持Kotlin开发的童鞋可以忽略此条）
 
     HaloPermission是基于Kotlin 1.2.10开发的，**如果您的工程也支持Kotlin开发，
 并且与HaloPermission所使用的版本不一致**，你可以排除HaloPermission对Kotlin版本库的依赖。
-    ```
+```
     compile('halo.android:permission:1.0-rc@aar', {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
     })
-    ```
+```
 
 ### Usage
   
@@ -60,5 +60,7 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
 
 ### 联系方式
 QQ：862638161
+
 Email:super_luo@163.com
+
 如需交流，欢迎讨论
