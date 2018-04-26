@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/release-0.9--rc-blue.svg)](https://github.com/SupLuo/HaloPermission/releases)
+[![Release](https://img.shields.io/badge/release-1.0--rc-blue.svg)](https://github.com/SupLuo/HaloPermission/releases)
 [![GitHub license](https://img.shields.io/github/license/SupLuo/HaloPermission.svg)](https://github.com/SupLuo/HaloPermission/blob/master/LICENSE.txt)
 
 ## HoloPermission
@@ -13,7 +13,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 ```
     dependencies {
         //gradle 3.+以后不是使用'compile'方法，而是使用'implementation' or 'api'等方式
-        compile('halo.android:permission:{latest-version}@aar')
+        compile('halo.android:permission:1.0-rc@aar')
     }
 
 ```
@@ -30,7 +30,7 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
     HaloPermission是基于Kotlin 1.2.10开发的，**如果您的工程也支持Kotlin开发，
 并且与HaloPermission所使用的版本不一致**，你可以排除HaloPermission对Kotlin版本库的依赖
     ```
-    compile('halo.android:permission:{latest-version}@aar', {
+    compile('halo.android:permission:1.0-rc@aar', {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
     })
     ```
@@ -54,14 +54,9 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 * 包含RationaleRender的效果
 
     ![image](https://github.com/SupLuo/HaloPermission/blob/master/doc/rationale_render.gif?raw=true)
-### Todo
-* 兼容6.0以下权限处理
-* 补全更多机型的权限设置界面
-* 安全软件中的权限管理
+
 
 ### 联系方式
 QQ：862638161
 Email:super_luo@163.com
 如需交流，欢迎讨论
-
-最近正在完善HaloPermission 1.0-rc的开发工作
