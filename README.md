@@ -4,8 +4,18 @@
 ## HoloPermission
 An Android permission library developed by Kotlin language with higher extensibility and compatibility.
 
-Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
+Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支持。
 
+## [HaloPermission解惑](www.baidu.com)(Why choose "HaloPermission")
+您可能对HaloPermission有诸多疑问：已经有那么多成熟的权限处理框架，为什么要用这个？这个有什么值得使用的理由？为什么这个库的星星这么少？这库到底靠谱不靠谱？...
+希望[HaloPermission解惑](www.baidu.com)能够消除您心中的疑虑。
+
+### Features
+* 支持RationaleRender
+* 支持SettingRender（支持配置打开权限设置界面，并自动检测设置是否改变）
+* 更好的系统权限设置界面兼容性
+* 6.0以下权限支持
+* 灵活简易的功能配置
 
 ### Setup
 
@@ -20,27 +30,19 @@ Kotlin语言开发的Android权限库，具有更高的扩展性和兼容性。
 
 额外配置说明:
 
-1. 配置V7依赖
+1. 配置对V7依赖
 
-    HaloPermission依赖`appcompat-v7`包（本身也依赖v4包，但v7依赖v4，所以引入v7即可），
-因此请**在你的工程中配置对`appcompat-v7`的依赖**
+    HaloPermission依赖`appcompat-v7`包（本身也依赖v4包，但v7依赖v4，所以引入v7即可），考虑您的support包版本一致问题，HaloPermission是以provided(gradle 3.x是compileOnly)的方式依赖v7包。
 
 2. 配置Kotlin版本一致（不支持Kotlin开发的童鞋可以忽略此条）
 
     HaloPermission是基于Kotlin 1.2.10开发的，**如果您的工程也支持Kotlin开发，
-并且与HaloPermission所使用的版本不一致**，你可以排除HaloPermission对Kotlin版本库的依赖
-    ```
+并且与HaloPermission所使用的版本不一致**，你可以排除HaloPermission对Kotlin版本库的依赖。
+    ```
     compile('halo.android:permission:1.0-rc@aar', {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
     })
     ```
-
-
-### Features
-* 支持RationaleRender
-* 支持SettingRender（支持打开权限设置界面，并自动检测设置是否改变）
-* 尽可能兼容的打开系统权限设置界面
-
 
 ### Usage
   
