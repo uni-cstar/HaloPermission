@@ -57,6 +57,9 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
 
     ![image](https://github.com/SupLuo/HaloPermission/blob/master/doc/rationale_render.gif?raw=true)
 
+### 缺陷
+对于6.0以下的权限处理，某些权限校验并不准确，这一部分稍后进一步说明原因。
+不仅HaloPermission如此，大多数有名的框架也不能解决这些问题。
 
 ### 联系方式
 QQ：862638161
