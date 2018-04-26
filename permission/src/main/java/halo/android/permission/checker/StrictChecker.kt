@@ -18,7 +18,6 @@ package halo.android.permission.checker
 
 import android.Manifest
 import android.content.Context
-import android.os.Build
 import halo.android.permission.checker.strict.*
 
 
@@ -61,11 +60,12 @@ class StrictChecker : PermissionChecker {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION -> LocationCheck(ctx)
                 Manifest.permission.CAMERA -> {
-                    if (Build.VERSION.SDK_INT >= 21) {
-                        CameraCheck21(ctx)
-                    } else {
-                        CameraCheck(ctx)
-                    }
+//                    if (Build.VERSION.SDK_INT >= 21) {
+//                        CameraCheck21(ctx)
+//                    } else {
+//                        CameraCheck(ctx)
+//                    }
+                    CameraCheck(ctx)
                 }
                 Manifest.permission.RECORD_AUDIO -> RecordAudioCheck(ctx)
                 BODY_SENSORS -> BodySensorCheck(ctx)

@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.ext.build_tools_version
     defaultConfig {
         applicationId "holo.android.permission.sample"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -31,4 +31,9 @@ dependencies {
 
     implementation project(':permission')
 //    implementation('halo.android:permission:0.9-rc@aar')
+
+    implementation 'com.github.jokermonn:permissions4m:2.1.2-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
+
+    implementation 'com.yanzhenjie:permission:2.0.0-rc4'
 }

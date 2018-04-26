@@ -151,13 +151,13 @@ object SettingIntent {
         return intent
     }
 
-    private fun vivo(context: Context): Intent {
+    private fun vivo(ctx: Context): Intent {
         val intent = Intent()
-        intent.putExtra("packagename", context.packageName)
+        intent.putExtra("packagename", ctx.packageName)
         if (Build.VERSION.SDK_INT >= 25) {
             intent.setClassName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.SoftPermissionDetailActivity")
         } else {
-            intent.setClassName("com.iqoo.secure", "com.iqoo.secure.safeguard.SoftPermissionDetailActivity")
+            intent.setClassName("com.iqoo.secure", "com.iqoo.secure.MainActivity")
         }
         return intent
     }

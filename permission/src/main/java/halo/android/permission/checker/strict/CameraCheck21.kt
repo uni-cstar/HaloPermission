@@ -22,57 +22,39 @@ import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.support.annotation.RequiresPermission
-import java.util.concurrent.CountDownLatch
 
 /**
  * Created by Lucio on 18/4/25.
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 @Deprecated("异步检测结果，待测试")
-class CameraCheck21(ctx: Context) : BaseCheck(ctx) {
+class CameraCheck21(ctx: Context) : BaseCheck(ctx){
 
-    private var checkResult: Boolean = false
-
-    private val lock: CountDownLatch = CountDownLatch(1)
 
     private val callBack = object : CameraDevice.StateCallback() {
         override fun onOpened(camera: CameraDevice?) {
             if (camera != null) {
-                checkResult = true
                 camera.close()
             }
-            countDown()
         }
 
         override fun onDisconnected(camera: CameraDevice?) {
-            checkResult = false
-            countDown()
+
         }
 
         override fun onError(camera: CameraDevice?, error: Int) {
-            checkResult = error == CameraDevice.StateCallback.ERROR_CAMERA_IN_USE || error == CameraDevice.StateCallback.ERROR_MAX_CAMERAS_IN_USE
-            countDown()
-        }
-    }
-
-    private inline fun countDown() {
-        if (lock.count > 0) {
-            lock.countDown()
         }
     }
 
     @RequiresPermission(Manifest.permission.CAMERA)
-    override fun check(): Boolean {
-
+    override fun check(): Boolean = tryCheck{
         val cameraManager = ctx.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         val cameraIds = cameraManager.cameraIdList
         if (cameraIds.isEmpty())
             return false
         val cameraId = cameraIds[0]
         cameraManager.openCamera(cameraId, callBack, null)
-
-        lock.await()
-        return checkResult
+        return true
     }
 
 }

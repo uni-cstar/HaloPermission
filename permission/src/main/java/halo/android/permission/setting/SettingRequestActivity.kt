@@ -48,6 +48,7 @@ class SettingRequestActivity : BaseRequestActivity() {
 
 
     override fun onCreateException(e: Throwable) {
+        e.printStackTrace()
         notifySettingResult()
     }
 

@@ -24,21 +24,17 @@ import android.hardware.Camera
 class CameraCheck(ctx: Context) : BaseCheck(ctx) {
 
     override fun check(): Boolean = tryCheck {
-        var canUse = false
         var mCamera: Camera? = null
-
         try {
             mCamera = Camera.open(0)
-            val mParameters = mCamera!!.parameters
-            mCamera.parameters = mParameters
+            return mCamera != null
         } catch (e: Exception) {
-            canUse = false
+            e.printStackTrace()
+            return false
+        } finally {
+            if (mCamera != null) {
+                mCamera.release()
+            }
         }
-
-        if (mCamera != null) {
-            mCamera.release()
-            canUse = true
-        }
-        return canUse
     }
 }

@@ -2,9 +2,11 @@ package halo.android.permission.processor
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import halo.android.permission.caller.PermissionCaller
 import halo.android.permission.caller.PermissionResponder
 import halo.android.permission.common.RequestContext
+import halo.android.permission.common.Util
 import halo.android.permission.request.RationaleRender
 import halo.android.permission.request.Request
 import halo.android.permission.request.SettingRender
@@ -61,15 +63,21 @@ abstract class BaseProcessor(override val request: Request,
         }
 
         if (mDenidPermissons.isNotEmpty()) {
-            //过滤rationnale权限
-            val rationalePermissions = mDenidPermissons.filter {
-                request.permissionContext.shouldShowRequestPermissionRationale(it)
-            }
 
-            if (rationalePermissions.isNotEmpty()) {
-                notifyRationaleView(rationalePermissions)
-            } else {
-                requestPermissionsReal()
+            if(Build.VERSION.SDK_INT >= Util.M){
+                //过滤rationnale权限
+                val rationalePermissions = mDenidPermissons.filter {
+                    request.permissionContext.shouldShowRequestPermissionRationale(it)
+                }
+
+                if (rationalePermissions.isNotEmpty()) {
+                    notifyRationaleView(rationalePermissions)
+                } else {
+                    requestPermissionsReal()
+                }
+            }else{
+                //23以下，直接处理SettingRender
+                notifySettingRender()
             }
         } else {
             notifyPermissionSucceed()
