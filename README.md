@@ -6,9 +6,9 @@ An Android permission library developed by Kotlin language with higher extensibi
 
 Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支持。
 
-## [HaloPermission解惑](www.baidu.com)(Why choose "HaloPermission")
+## [HaloPermission解惑(Why choose "HaloPermission")](https://github.com/SupLuo/HaloPermission/blob/master/doc/What%20is%20%22HaloPermission%22.md)
 您可能对HaloPermission有诸多疑问：已经有那么多成熟的权限处理框架，为什么要用这个？这个有什么值得使用的理由？为什么这个库的星星这么少？这库到底靠谱不靠谱？...
-希望[HaloPermission解惑](www.baidu.com)能够消除您心中的疑虑。
+希望[HaloPermission解惑](https://github.com/SupLuo/HaloPermission/blob/master/doc/What%20is%20%22HaloPermission%22.md)能够消除您心中的疑虑。
 
 ### Features
 * 支持RationaleRender

@@ -118,7 +118,7 @@ class Request(val permissionContext: PermissionContext) {
         return this
     }
 
-    private fun build(isEnableUnder23: Boolean = false): PermissionProcessor {
+    private fun build(isEnableUnder23: Boolean = true): PermissionProcessor {
         if (isEnableUnder23) {
             return StrictProcessor(this, ActivityPermissionCaller())
         } else {
@@ -141,7 +141,7 @@ class Request(val permissionContext: PermissionContext) {
     /**
      * 立即执行
      */
-    fun run(isEnableUnder23: Boolean = false) = build(isEnableUnder23).invoke()
+    fun run(isEnableUnder23: Boolean = true) = build(isEnableUnder23).invoke()
 
     fun run(checker: PermissionChecker) = build(checker).invoke()
 
