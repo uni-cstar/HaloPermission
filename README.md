@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/release-1.0--rc-blue.svg)](https://github.com/SupLuo/HaloPermission/releases)
+[![Release](https://img.shields.io/badge/release-1.0.1--rc-blue.svg)](https://github.com/SupLuo/HaloPermission/releases)
 [![GitHub license](https://img.shields.io/github/license/SupLuo/HaloPermission.svg)](https://github.com/SupLuo/HaloPermission/blob/master/LICENSE.txt)
 
 ## HoloPermission
@@ -23,20 +23,42 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
 ```
     dependencies {
         //gradle 3.+以后不是使用'compile'方法，而是使用'implementation' or 'api'等方式
-        compile('halo.android:permission:1.0-rc@aar')
+        compile('halo.android:permission:1.0.1-rc@aar'){
+            //传递依赖
+            transitive = true
+        }
     }
 
 ```
 
 额外配置说明:
 
-1. 配置对V7依赖
+1. V7依赖说明
 
-    HaloPermission依赖`appcompat-v7`包（本身也依赖v4包，但v7依赖v4，所以引入v7即可），考虑您的support包版本一致问题，HaloPermission是以provided(gradle 3.x是compileOnly)的方式依赖v7包。
+    HaloPermission依赖`com.android.support:appcompat-v7:25.0.1`包（本身也依赖v4包，但v7依赖v4，所以引入v7即可），如果与您工程依赖的版本不一致，你可以排除HaloPermission的版本依赖。
+        但是`appcompat-v7`的版本不能低于24.1.+
 
-2. 配置Kotlin
+    ```
+        compile('halo.android:permission:1.0.1-rc@aar'){
+            //传递依赖
+            transitive = true
+            //排除appcompat-v7依赖
+            exclude group: 'com.android.support', module: 'appcompat-v7'
+        }
+    ```
 
-    HaloPermission是基于Kotlin 1.2.10开发的，所以需要您的工程支持Kotlin开发。配置Kotlin并不意味着改变您的开发方式，习惯用Java开发的童鞋可以继续使用Java的，仅仅是需要配置Kotlin支持而已。
+2. Kotlin依赖说明（项目不支持Kotlin开发的童鞋可以忽略）
+
+    HaloPermission是基于`org.jetbrains.kotlin:kotlin-stdlib:1.2.10`开发的，如果您的工程也支持Kotlin开发，并且与HaloPermission版本不一致，您可以排除HaloPermission对`kotlin-stdlib`的依赖。
+    但是`kotlin-stdlib`的版本最好不能低于1.2.10
+    ```
+        compile('halo.android:permission:1.0.1-rc@aar'){
+            //传递依赖
+            transitive = true
+            //排除kotlin-stdlib依赖
+            exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+        }
+    ```
 
 ### Usage
   

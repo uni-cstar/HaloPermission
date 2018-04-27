@@ -22,7 +22,9 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        transitive = true
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
     })
     compile "com.android.support:appcompat-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
