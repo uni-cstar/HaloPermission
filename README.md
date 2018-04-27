@@ -73,8 +73,26 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
 
     ![image](https://github.com/SupLuo/HaloPermission/blob/master/doc/rationale_render.gif?raw=true)
 
-### 缺陷
-对于6.0以下的权限处理，某些权限校验并不准确，这一部分稍后进一步说明原因。
+### 发布记录
+
+##### 1.0.1-rc
+* 以更合理的方式提供依赖传递
+
+##### 1.0-rc
+* 提供严格权限检查实现（通过对权限的具体使用判断权限是否可用）
+* 兼容6.0以下权限
+
+##### 0.9-rc
+* 支持SettingRender
+* 支持RationaleRender
+* 提供标准权限检查Checker实现
+* 提供Activity权限请求方式Caller实现
+
+
+
+
+### 缺陷说明
+对于6.0以下的权限处理，某些权限校验**可能**并不准确，这一部分稍后进一步说明原因。
 不仅HaloPermission如此，大多数有名的框架也不能解决这些问题。但是这并不影响app的正常逻辑流程，因为在后续流程中你能够得到更具体的一些信息。
 
 ### 联系方式
