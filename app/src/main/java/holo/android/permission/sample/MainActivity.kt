@@ -1,17 +1,13 @@
 package holo.android.permission.sample
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import com.joker.api.Permissions4M
-import com.joker.api.wrapper.ListenerWrapper
 import com.yanzhenjie.permission.AndPermission
 import halo.android.permission.HaloPermission
 import halo.android.permission.request.*
@@ -214,7 +210,7 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        Permissions4M.onRequestPermissionsResult(this, requestCode, grantResults)
+//        Permissions4M.onRequestPermissionsResult(this, requestCode, grantResults)
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
