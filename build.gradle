@@ -9,7 +9,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:2.2.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
@@ -25,12 +25,18 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 
+    //加上这些
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
         options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
     }
 }
+
+//tasks.getByPath(":permission:mavenAndroidJavadocs").enabled = false
+//tasks.getByPath(":permission:releaseAndroidJavadocs").enabled = false
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+

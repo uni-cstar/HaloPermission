@@ -144,74 +144,74 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun permission4MCamera() {
-        Permissions4M.get(this)
-                .requestForce(true)
-                .requestUnderM(true)
-                .requestPermissions(Manifest.permission.CAMERA)
-                .requestCodes(11)
-                .requestListener(object : ListenerWrapper.PermissionRequestListener {
-                    override fun permissionDenied(p0: Int) {
-                        toast("不允许使用照相机")
-                    }
-
-                    override fun permissionRationale(p0: Int) {
-                        toast("permissionRationale")
-                    }
-
-                    override fun permissionGranted(p0: Int) {
-                        toast("允许使用照相机")
-                    }
-                })
-                // 二次请求时回调
-                .requestCustomRationaleListener(object : ListenerWrapper.PermissionCustomRationaleListener {
-
-                    override fun permissionCustomRationale(code: Int) {
-                        AlertDialog.Builder(this@MainActivity)
-                                .setMessage("接下来请允许程序使用相机，否则无法正常使用该功能。")
-                                .setPositiveButton("好的", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        Permissions4M.get(this@MainActivity)
-                                                .requestOnRationale()
-                                                .requestPermissions(Manifest.permission.READ_PHONE_STATE)
-                                                .requestCodes(12)
-                                                .request()
-                                    }
-
-                                })
-                                .setNegativeButton("不了", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                    }
-                                })
-                                .setOnCancelListener {
-                                }.show()
-                    }
-                })
-                // 权限完全被禁时回调函数中返回 intent 类型（手机管家界面）
-                .requestPageType(Permissions4M.PageType.MANAGER_PAGE)
-                // 权限完全被禁时回调函数中返回 intent 类型（系统设置界面）
-                //.requestPageType(Permissions4M.PageType.ANDROID_SETTING_PAGE)
-                // 权限完全被禁时回调，接口函数中的参数 Intent 是由上一行决定的
-                .requestPage(object : ListenerWrapper.PermissionPageListener {
-                    override fun pageIntent(p0: Int, intent: Intent?) {
-                        AlertDialog.Builder(this@MainActivity)
-                                .setMessage("读取通讯录权限申请：\n我们需要您开启读取通讯录权限(in activity with listener)")
-                                .setPositiveButton("好的", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        startActivity(intent);
-                                    }
-
-                                })
-                                .setNegativeButton("不了", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                    }
-                                })
-                                .setOnCancelListener {
-                                }.show()
-                    }
-                })
-                .request()
-    }
+//    fun permission4MCamera() {
+//        Permissions4M.get(this)
+//                .requestForce(true)
+//                .requestUnderM(true)
+//                .requestPermissions(Manifest.permission.CAMERA)
+//                .requestCodes(11)
+//                .requestListener(object : ListenerWrapper.PermissionRequestListener {
+//                    override fun permissionDenied(p0: Int) {
+//                        toast("不允许使用照相机")
+//                    }
+//
+//                    override fun permissionRationale(p0: Int) {
+//                        toast("permissionRationale")
+//                    }
+//
+//                    override fun permissionGranted(p0: Int) {
+//                        toast("允许使用照相机")
+//                    }
+//                })
+//                // 二次请求时回调
+//                .requestCustomRationaleListener(object : ListenerWrapper.PermissionCustomRationaleListener {
+//
+//                    override fun permissionCustomRationale(code: Int) {
+//                        AlertDialog.Builder(this@MainActivity)
+//                                .setMessage("接下来请允许程序使用相机，否则无法正常使用该功能。")
+//                                .setPositiveButton("好的", object : DialogInterface.OnClickListener {
+//                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+//                                        Permissions4M.get(this@MainActivity)
+//                                                .requestOnRationale()
+//                                                .requestPermissions(Manifest.permission.READ_PHONE_STATE)
+//                                                .requestCodes(12)
+//                                                .request()
+//                                    }
+//
+//                                })
+//                                .setNegativeButton("不了", object : DialogInterface.OnClickListener {
+//                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+//                                    }
+//                                })
+//                                .setOnCancelListener {
+//                                }.show()
+//                    }
+//                })
+//                // 权限完全被禁时回调函数中返回 intent 类型（手机管家界面）
+//                .requestPageType(Permissions4M.PageType.MANAGER_PAGE)
+//                // 权限完全被禁时回调函数中返回 intent 类型（系统设置界面）
+//                //.requestPageType(Permissions4M.PageType.ANDROID_SETTING_PAGE)
+//                // 权限完全被禁时回调，接口函数中的参数 Intent 是由上一行决定的
+//                .requestPage(object : ListenerWrapper.PermissionPageListener {
+//                    override fun pageIntent(p0: Int, intent: Intent?) {
+//                        AlertDialog.Builder(this@MainActivity)
+//                                .setMessage("读取通讯录权限申请：\n我们需要您开启读取通讯录权限(in activity with listener)")
+//                                .setPositiveButton("好的", object : DialogInterface.OnClickListener {
+//                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+//                                        startActivity(intent);
+//                                    }
+//
+//                                })
+//                                .setNegativeButton("不了", object : DialogInterface.OnClickListener {
+//                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+//                                    }
+//                                })
+//                                .setOnCancelListener {
+//                                }.show()
+//                    }
+//                })
+//                .request()
+//    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         Permissions4M.onRequestPermissionsResult(this, requestCode, grantResults)

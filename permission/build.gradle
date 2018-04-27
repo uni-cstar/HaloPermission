@@ -20,12 +20,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
-    compileOnly "com.android.support:appcompat-v7:$support_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
+
+
+//tasks.getByPath(":permission:releaseAndroidJavadocs").enabled = false
 
 apply from:'./bintray.gradle'
 

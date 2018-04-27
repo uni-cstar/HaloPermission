@@ -20,20 +20,20 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation "com.android.support:appcompat-v7:$support_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 
-    implementation project(':permission')
+    compile project(':permission')
 //    implementation('halo.android:permission:0.9-rc@aar')
+//
+//    implementation 'com.github.jokermonn:permissions4m:2.1.2-lib'
+//    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
 
-    implementation 'com.github.jokermonn:permissions4m:2.1.2-lib'
-    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
-
-    implementation 'com.yanzhenjie:permission:2.0.0-rc4'
+    compile 'com.yanzhenjie:permission:2.0.0-rc4'
 }
