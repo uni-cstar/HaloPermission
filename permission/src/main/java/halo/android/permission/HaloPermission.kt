@@ -49,6 +49,7 @@ object HaloPermission {
     }
 
     @JvmStatic
+    @JvmOverloads
     fun original(activity: Activity, vararg permission: String, requestCode: Int = 0x111): OriginalRequest {
         val request = OriginalRequest(activity, requestCode)
         request.setPermissions(*permission)
@@ -56,6 +57,7 @@ object HaloPermission {
     }
 
     @JvmStatic
+    @JvmOverloads
     fun original(fragment: android.app.Fragment, vararg permission: String, requestCode: Int = 0x111): OriginalRequest {
         val request = OriginalRequest(fragment, requestCode)
         request.setPermissions(*permission)
@@ -63,27 +65,21 @@ object HaloPermission {
     }
 
     @JvmStatic
+    @JvmOverloads
     fun original(fragment: Fragment, vararg permission: String, requestCode: Int = 0x111): OriginalRequest {
         val request = OriginalRequest(fragment, requestCode)
         request.setPermissions(*permission)
         return request
     }
 
-
-    @JvmStatic
-    @JvmOverloads
     fun originalCaller(fragment: Fragment, requestCode: Int = 0x11): PermissionCaller {
         return OriginalSupportFragmentCaller(fragment, requestCode)
     }
 
-    @JvmStatic
-    @JvmOverloads
     fun originalCaller(fragment: android.app.Fragment, requestCode: Int = 0x11): PermissionCaller {
         return OriginalFragmentCaller(fragment, requestCode)
     }
 
-    @JvmStatic
-    @JvmOverloads
     fun originalCaller(activity: Activity, requestCode: Int = 0x11): PermissionCaller {
         return OriginalActivityCaller(activity, requestCode)
     }

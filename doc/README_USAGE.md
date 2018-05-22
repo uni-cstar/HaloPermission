@@ -160,3 +160,19 @@ Fragment的请求方式，但是最终去掉了这部分的实现，因为对于
        .run(CustomCaller())
 
 ```
+
+
+#### 6. 使用原始的上下文请求权限
+
+```
+    1.在请求权限时使用original方法替代with方法
+        HaloPermission.original(this,Manifest.permission.READ_CONTACTS)
+            ....
+
+    2.在当前上下文中（Activity/Fragment）重写onRequestPermissionsResult方法
+        override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            HaloPermission.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+
+```

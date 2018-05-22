@@ -75,6 +75,9 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
 
 ### 发布记录
 
+##### 1.0.2-rc
+* 支持使用原始的上下文（用户当前界面）请求权限，使用方法查看[详细使用第6点](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)
+
 ##### 1.0.1-rc
 * 以更合理的方式提供依赖传递
 

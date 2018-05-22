@@ -1,7 +1,7 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def proj_version = '1.0.1-rc'
+def proj_version = '1.0.2-rc'
 def proj_artifact_id = 'permission'
 def proj_group = 'halo.android'
 def proj_pom_name = 'Android Permission'
