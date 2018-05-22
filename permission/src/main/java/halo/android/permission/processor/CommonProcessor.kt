@@ -3,6 +3,7 @@ package halo.android.permission.processor
 import android.content.Context
 import halo.android.permission.caller.PermissionCaller
 import halo.android.permission.checker.PermissionChecker
+import halo.android.permission.request.BaseRequest
 import halo.android.permission.request.Request
 
 /**
@@ -14,7 +15,7 @@ import halo.android.permission.request.Request
  * @param checker 权限检查器
  * @param caller 权限发起请求调用器
  */
-open class CommonProcessor(request: Request,
+open class CommonProcessor(request: BaseRequest,
                            val checker: PermissionChecker,
                            caller: PermissionCaller) : BaseProcessor(request, caller) {
 

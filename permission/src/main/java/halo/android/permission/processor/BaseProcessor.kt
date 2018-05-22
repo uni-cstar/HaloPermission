@@ -5,10 +5,9 @@ import android.content.Intent
 import android.os.Build
 import halo.android.permission.caller.PermissionCaller
 import halo.android.permission.caller.PermissionResponder
-import halo.android.permission.common.RequestContext
 import halo.android.permission.common.Util
+import halo.android.permission.request.BaseRequest
 import halo.android.permission.request.RationaleRender
-import halo.android.permission.request.Request
 import halo.android.permission.request.SettingRender
 import halo.android.permission.setting.SettingCaller
 import halo.android.permission.setting.SettingIntent
@@ -24,10 +23,9 @@ import halo.android.permission.setting.SettingResponder
  * @param checker 权限检查器
  * @param caller 权限发起请求调用器
  */
-abstract class BaseProcessor(override val request: Request,
+abstract class BaseProcessor(override val request: BaseRequest,
                              val caller: PermissionCaller)
     : PermissionProcessor, PermissionResponder, SettingResponder {
-
 
     //被拒绝的权限集合
     private var mDenidPermissons: MutableList<String> = mutableListOf()
@@ -51,7 +49,6 @@ abstract class BaseProcessor(override val request: Request,
     override fun invoke() {
         start()
     }
-
 
     private fun start() {
         val permissions = request.getPermissions()
@@ -113,7 +110,7 @@ abstract class BaseProcessor(override val request: Request,
         val rationaleView = request.getRationaleRender()
         if (rationaleView != null) {
             //不为空则显示RationaleView
-            rationaleView.show(request.permissionContext.ctx, permissions, mRationaleProcess)
+            rationaleView.show(request.getContext(), permissions, mRationaleProcess)
         } else {
             requestPermissionsReal()
         }
@@ -145,9 +142,8 @@ abstract class BaseProcessor(override val request: Request,
     /**
      * [PermissionResponder]回调 处理请求的权限结果返回
      */
-    override fun onPermissionResult(sender: RequestContext, permissions: Array<out String>?) {
-        //关闭上下文
-        sender.finish()
+    override fun onPermissionResult(permissions: Array<out String>?) {
+
         //过滤被拒绝的权限
         val denyPermissions = permissions?.filter {
             !isPermissionGrantedForPermissionResultCheck(request.getContext(), it)
@@ -163,8 +159,7 @@ abstract class BaseProcessor(override val request: Request,
     /**
      * [SettingResponder]回调
      */
-    override fun onSettingResult(sender: RequestContext) {
-        sender.finish()
+    override fun onSettingResult() {
         notifySettingResult()
     }
 
@@ -200,8 +195,8 @@ abstract class BaseProcessor(override val request: Request,
     /**
      * [SettingResponder]回调 获取用户自定义权限设置界面
      */
-    override fun getCustomSettingIntent(sender: RequestContext): Intent? {
-        return request.getSettingRender()?.getCustomSettingIntent(sender.getContext())
+    override fun getCustomSettingIntent(ctx: Context): Intent? {
+        return request.getSettingRender()?.getCustomSettingIntent(ctx)
     }
 
     /**

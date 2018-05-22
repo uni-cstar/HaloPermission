@@ -13,14 +13,14 @@ import halo.android.permission.common.BaseRequestActivity
 class SettingRequestActivity : BaseRequestActivity() {
 
 
-
     companion object {
 
         //静态属性  权限请求结果回调
         @JvmStatic
         private var mResponder: SettingResponder? = null
 
-        @JvmStatic private val REQUEST_CODE = 0x1111
+        @JvmStatic
+        private val REQUEST_CODE = 0x1111
 
         /**
          * 开始请求
@@ -60,6 +60,12 @@ class SettingRequestActivity : BaseRequestActivity() {
     }
 
     private fun notifySettingResult() {
-        mResponder?.onSettingResult(this)
+        mResponder?.onSettingResult()
+        finish()
+    }
+
+    override fun finish() {
+        super.finish()
+        mResponder = null
     }
 }

@@ -21,6 +21,7 @@ import halo.android.permission.caller.PermissionCaller
 import halo.android.permission.checker.PermissionChecker
 import halo.android.permission.checker.StandardChecker23
 import halo.android.permission.checker.StrictChecker
+import halo.android.permission.request.BaseRequest
 import halo.android.permission.request.Request
 
 /**
@@ -28,7 +29,7 @@ import halo.android.permission.request.Request
  * 严格权限校验流程
  * 即第一次使用常规权限检测判断，请求权限之后，用严格权限校验检测判断
  */
-class StrictProcessor(request: Request, caller: PermissionCaller) : BaseProcessor(request, caller) {
+class StrictProcessor(request: BaseRequest, caller: PermissionCaller) : BaseProcessor(request, caller) {
 
 
     private val standardChecker: PermissionChecker by lazy {

@@ -3,13 +3,12 @@
  */
 package halo.android.permission.setting
 
+import android.content.Context
 import android.content.Intent
-import halo.android.permission.common.RequestContext
-
 
 interface SettingResponder {
 
-    fun onSettingResult(sender: RequestContext)
+    fun onSettingResult()
 
-    fun getCustomSettingIntent(sender: RequestContext): Intent?
+    fun getCustomSettingIntent(ctx:Context): Intent?
 }

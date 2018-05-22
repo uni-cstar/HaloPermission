@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -74,40 +76,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btn3Click(v: View?) {
-        HaloPermission.with(this)
-                .setPermissions(Manifest.permission.READ_CONTACTS)
-                .setGrandAction(object : GrandAction {
-                    override fun onPermissionGrand(permissions: List<String>) {
-                        toast("允许读取联系人")
-                    }
-                })
-                .setDenyAction(object : DenyAction {
-                    override fun onPermissionDenied(permissions: List<String>) {
-                        toast("不允许读取联系人")
-                    }
-                })
-                .setSettingRender(object : SettingRender {
-                    override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
-                        AlertDialog.Builder(this@MainActivity)
-                                .setMessage("无法读取联系人权限，请设置，否则无法正常使用该功能。")
-                                .setPositiveButton("设置", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onNext()
-                                    }
-
-                                })
-                                .setNegativeButton("拒绝", object : DialogInterface.OnClickListener {
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        process.onCancel()
-                                    }
-                                })
-                                .setOnCancelListener {
-                                    process.onCancel()
-                                }.show()
-                    }
-                })
-                .run(true)
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS),11)
+//        HaloPermission.original(this,Manifest.permission.READ_CONTACTS)
+//                .setGrandAction(object : GrandAction {
+//                    override fun onPermissionGrand(permissions: List<String>) {
+//                        toast("允许读取联系人")
+//                    }
+//                })
+//                .setDenyAction(object : DenyAction {
+//                    override fun onPermissionDenied(permissions: List<String>) {
+//                        toast("不允许读取联系人")
+//                    }
+//                })
+//                .setSettingRender(object : SettingRender {
+//                    override fun show(ctx: Context, permission: List<String>, process: SettingRender.Process) {
+//
+//                        print("hashcode = ${ctx.hashCode() == this@MainActivity.hashCode()} ")
+//                        val fd = DialogFragment()
+//                        fd.show(this@MainActivity.supportFragmentManager, "tt")
+////                        AlertDialog.Builder(this@MainActivity)
+////                                .setMessage("无法读取联系人权限，请设置，否则无法正常使用该功能。")
+////                                .setPositiveButton("设置", object : DialogInterface.OnClickListener {
+////                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+////                                        process.onNext()
+////                                    }
+////
+////                                })
+////                                .setNegativeButton("拒绝", object : DialogInterface.OnClickListener {
+////                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+////                                        process.onCancel()
+////                                    }
+////                                })
+////                                .setOnCancelListener {
+////                                    process.onCancel()
+////                                }.show()
+//                    }
+//                })
+//                .run(true)
     }
+
 
     fun andPermission() {
 
@@ -212,6 +219,9 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 //        Permissions4M.onRequestPermissionsResult(this, requestCode, grantResults)
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        HaloPermission.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val fd = DialogFragment()
+        fd.show(this@MainActivity.supportFragmentManager, "tt")
     }
 
     fun btn4Click(v: View?) {

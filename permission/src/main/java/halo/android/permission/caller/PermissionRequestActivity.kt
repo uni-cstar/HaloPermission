@@ -11,16 +11,14 @@ import halo.android.permission.common.BaseRequestActivity
  * the request caller by activity
  * Activity形式实现的请求权限者
  */
- class PermissionRequestActivity : BaseRequestActivity() {
+class PermissionRequestActivity : BaseRequestActivity() {
 
 
     companion object {
 
-        @JvmStatic
-        protected val EXTRA_DATE = "extra_data"
+        protected const val EXTRA_DATE = "extra_data"
 
-        @JvmStatic
-        private val REQUEST_CODE = 0x1111
+        private const val REQUEST_CODE = 0x1111
 
         //静态属性  权限请求结果回调
         @JvmStatic
@@ -41,7 +39,6 @@ import halo.android.permission.common.BaseRequestActivity
 
     //权限集合
     private lateinit var mPermissions: Array<String>
-
 
     override fun onCreateInit() {
         mPermissions = intent.getStringArrayExtra(EXTRA_DATE)
@@ -65,7 +62,7 @@ import halo.android.permission.common.BaseRequestActivity
 
     //call back
     private fun notifyPermissionResult(permissions: Array<out String>?) {
-        mPermissionResponder?.onPermissionResult(this, permissions)
+        mPermissionResponder?.onPermissionResult(permissions)
         this.finish()
     }
 

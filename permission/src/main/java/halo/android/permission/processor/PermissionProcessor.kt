@@ -1,6 +1,6 @@
 package halo.android.permission.processor
 
-import halo.android.permission.request.Request
+import halo.android.permission.request.BaseRequest
 
 /**
  * Created by Lucio on 18/4/5.
@@ -11,7 +11,7 @@ import halo.android.permission.request.Request
  */
 interface PermissionProcessor {
 
-    val request: Request
+    val request: BaseRequest
 
     fun invoke()
 }

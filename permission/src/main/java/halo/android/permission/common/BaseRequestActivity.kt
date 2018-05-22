@@ -12,7 +12,7 @@ import android.view.WindowManager
 /**
  * Created by Lucio on 18/4/9.
  */
-abstract class BaseRequestActivity : Activity(), RequestContext {
+abstract class BaseRequestActivity : Activity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +43,12 @@ abstract class BaseRequestActivity : Activity(), RequestContext {
         }
     }
 
-    /**
-     * [RequestContext]回调
-     */
-    override fun getContext(): Context {
-        return this
-    }
+//    /**
+//     * [RequestContext]回调
+//     */
+//    override fun getContext(): Context {
+//        return this
+//    }
 
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
