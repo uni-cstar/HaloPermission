@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Lucio
+ * Copyright (C) 2019 Lucio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package halo.android.permission.request
-
-import halo.android.permission.context.PermissionContext
+package halo.android.v2.request
 
 /**
- * Created by Lucio on 18/4/4.
+ * Created by Lucio on 18/4/5.
  */
-class Request(permissionContext: PermissionContext) : BaseRequest(permissionContext) {
 
+interface DenyAction {
+    fun onPermissionDenied(permissions: List<String>)
 }
+
+interface GrandAction{
+    fun onPermissionGrand(permissions: List<String>)
+}
+
+
+interface PermissionListener :DenyAction,GrandAction

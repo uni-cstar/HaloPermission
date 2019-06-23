@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Lucio
+ * Copyright (C) 2019 Lucio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package halo.android.permission.checker
+package halo.android.v2.checker
 
 import android.Manifest
 import android.content.Context
@@ -26,10 +26,10 @@ import halo.android.permission.checker.strict.*
  * 严格权限校验
  */
 
-class StrictChecker : PermissionChecker {
+class StrictChecker : StandardChecker() {
 
     override fun isPermissionGranted(ctx: Context, permission: String): Boolean {
-        return Factory.create(ctx, permission).check()
+        return super.isPermissionGranted(ctx, permission) && Factory.create(ctx, permission).check()
     }
 
     internal companion object Factory {
