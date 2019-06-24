@@ -33,6 +33,8 @@ object Util {
     //23版本以下的没有[Build.VERSION_CODES.M]变量
     const val M = 23
 
+    const val O = 26
+
     /**
      * 是否需要进行权限处理（目标版本是否是23及以上）
      */

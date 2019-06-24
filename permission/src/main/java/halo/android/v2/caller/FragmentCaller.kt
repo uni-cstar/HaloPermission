@@ -21,7 +21,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import halo.android.v2.common.Log
+import halo.android.v2.common.PLog
 import halo.android.v2.processor.PermissionResponder
 import halo.android.v2.setting.SettingResponder
 
@@ -58,7 +58,7 @@ class FragmentCaller(val fm: FragmentManager) : PermissionCaller {
     }
 
     override fun requestPermissionSetting(responder: SettingResponder, intent: Intent) {
-
+        permissionFragment.requestPermissionSetting(responder, intent)
     }
 }
 
@@ -77,13 +77,13 @@ class PermissionFragment : Fragment() {
 
     fun requestPermission(responder: PermissionResponder, vararg permissions: String) {
         mPermissionResponder = responder
-        Log.d("request permission from PermissionFragment:\n" + permissions.joinToString("\n"))
+        PLog.d("request permission from PermissionFragment:\n" + permissions.joinToString("\n"))
         requestPermissions(permissions, mPermissionRequestCode)
     }
 
     fun requestPermissionSetting(responder: SettingResponder, intent: Intent) {
         mPermissionSettingResponder = responder
-        Log.d("request permission setting from PermissionFragment:\n$intent")
+        PLog.d("request permission setting from PermissionFragment:\n$intent")
         startActivityForResult(intent, mPermissionSettingRequestCode)
     }
 
@@ -92,12 +92,12 @@ class PermissionFragment : Fragment() {
         if (requestCode == mPermissionRequestCode) {
             mPermissionResponder?.onPermissionResponderResult(permissions, grantResults)
         }
-        Log.d("request permission from PermissionFragment:\n" + permissions.joinToString("\n"))
+        PLog.d("request permission from PermissionFragment:\n" + permissions.joinToString("\n"))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == mPermissionSettingRequestCode){
+        if (requestCode == mPermissionSettingRequestCode) {
             mPermissionSettingResponder?.onSettingResponderResult(resultCode, data)
         }
     }

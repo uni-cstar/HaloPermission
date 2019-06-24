@@ -20,11 +20,7 @@
  */
 package halo.android.v2.checker
 
-import android.app.AppOpsManager
 import android.content.Context
-import android.os.Binder
-import android.os.Build
-import android.os.Build.VERSION_CODES.KITKAT
 import android.support.v4.app.AppOpsManagerCompat
 import halo.android.v2.common.Util
 

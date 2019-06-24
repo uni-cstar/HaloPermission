@@ -21,7 +21,7 @@ import android.util.Log
 /**
  * Created by Lucio on 2019/6/23.
  */
-object Log {
+object PLog {
 
     const val TAG = "HaloPermission"
 
