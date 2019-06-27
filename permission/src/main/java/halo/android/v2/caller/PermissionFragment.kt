@@ -19,50 +19,11 @@ package halo.android.v2.caller
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import halo.android.v2.SpecPermission
 import halo.android.v2.common.PLog
 import halo.android.v2.processor.PermissionResponder
 import halo.android.v2.setting.SettingResponder
+import halo.android.v2.spec.SpecPermission
 import halo.android.v2.spec.SpecialCaller
-import halo.android.v2.spec.SpecialListener
-import halo.android.v2.spec.SpecialPermission
-
-/**
- * Created by Lucio on 2019/6/22.
- */
-
-
-open class FragmentCaller(val fm: FragmentManager) : PermissionCaller {
-
-    private val TAG = FragmentCaller::class.java.simpleName
-
-    protected val callerFragment: PermissionFragment by lazy {
-        var instance: PermissionFragment? = findPermissionFragment()
-        if (instance == null) {
-            instance = PermissionFragment()
-            fm.beginTransaction().add(instance, TAG).commitNow()
-        }
-        instance!!
-    }
-
-    constructor(activity: FragmentActivity) : this(activity.supportFragmentManager)
-
-    constructor(fragment: Fragment) : this(fragment.childFragmentManager)
-
-    private fun findPermissionFragment(): PermissionFragment? {
-        return fm.findFragmentByTag(TAG) as? PermissionFragment
-    }
-
-    override fun requestPermission(responder: PermissionResponder, vararg permissions: String) {
-        callerFragment.requestPermission(responder, *permissions)
-    }
-
-    override fun requestPermissionSetting(responder: SettingResponder, intent: Intent) {
-        callerFragment.requestPermissionSetting(responder, intent)
-    }
-}
 
 class PermissionFragment : Fragment(), PermissionCaller, SpecialCaller {
 
@@ -73,9 +34,8 @@ class PermissionFragment : Fragment(), PermissionCaller, SpecialCaller {
     private var mPermissionSettingResponder: SettingResponder? = null
     private val mPermissionSettingRequestCode = 12
 
-    private var mSpecResponder: SpecialListener? = null
+    private var mSpecPermission: SpecPermission? = null
     private val mSpecRequestCode = 13
-    private var mSpecPermission: SpecialPermission? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,11 +54,9 @@ class PermissionFragment : Fragment(), PermissionCaller, SpecialCaller {
         startActivityForResult(intent, mPermissionSettingRequestCode)
     }
 
-    override fun requestSpecialPermission(spec: SpecialPermission, listener: SpecialListener) {
-        mSpecResponder = listener
+    override fun requestSpecialPermission(spec: SpecPermission) {
         mSpecPermission = spec
-        val intent = spec.newSettingIntent(requireContext())
-        startActivityForResult(intent, mSpecRequestCode)
+        startActivityForResult(spec.createSettingIntent(requireContext()), mSpecRequestCode)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -116,15 +74,14 @@ class PermissionFragment : Fragment(), PermissionCaller, SpecialCaller {
             mPermissionSettingResponder?.onSettingResponderResult(resultCode, data)
             mPermissionSettingResponder = null
         } else if (requestCode == mSpecRequestCode) {
-            if (mSpecPermission != null && mSpecResponder != null) {
-                if (SpecPermission.isGrand(requireContext(),mSpecPermission!!)) {
-                    mSpecResponder?.onSpecialGrand(mSpecPermission!!)
-                } else {
-                    mSpecResponder?.onSpecialDeny(mSpecPermission!!)
+            mSpecPermission?.apply {
+                if(isGrand(requireContext())){
+                    notifyGrand()
+                }else{
+                    notifyDeny()
                 }
             }
             mSpecPermission = null
-            mSpecResponder = null
         }
     }
 }

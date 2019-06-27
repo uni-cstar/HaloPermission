@@ -29,15 +29,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.NotificationManagerCompat
 import halo.android.v2.common.*
-import halo.android.v2.spec.FragmentSpecialCaller
-import halo.android.v2.spec.SpecialListener
-import halo.android.v2.spec.SpecialPermission
+import halo.android.v2.spec.*
 
 /**
  * Created by Lucio on 2019/6/24.
  */
 
-object SpecPermission {
+object SpecPermissionManager {
 
     /**
      * 是否拥有悬浮窗权限
@@ -85,7 +83,7 @@ object SpecPermission {
     }
 
     /**
-     * 请求设置悬浮窗权限
+     * 创建设置悬浮窗权限意图
      */
     @JvmStatic
     fun createDrawOverlaysSettingIntentOrDefault(ctx: Context): Intent {
@@ -99,15 +97,17 @@ object SpecPermission {
     /**
      * 请求悬浮窗权限
      */
+    @JvmStatic
     fun requestDrawOverlays(activity: FragmentActivity, listener: SpecialListener) {
-        checkAndRequest(activity, SpecialPermission.SYSTEM_ALERT_WINDOW, listener)
+        checkAndRequest(activity, SpecPermissionPackageInstall(listener))
     }
 
     /**
      * 请求悬浮窗权限
      */
+    @JvmStatic
     fun requestDrawOverlays(fragment: Fragment, listener: SpecialListener) {
-        checkAndRequest(fragment, SpecialPermission.SYSTEM_ALERT_WINDOW, listener)
+        checkAndRequest(fragment, SpecPermissionPackageInstall(listener))
     }
 
     /**
@@ -138,7 +138,7 @@ object SpecPermission {
     }
 
     /**
-     * 请求系统设置修改Intent
+     * 创先系统设置修改意图
      */
     @JvmStatic
     fun createWriteSystemSettingIntentOrDefault(ctx: Context): Intent {
@@ -152,15 +152,17 @@ object SpecPermission {
     /**
      * 请求系统设置修改权限
      */
+    @JvmStatic
     fun requestWriteSystemSetting(activity: FragmentActivity, listener: SpecialListener) {
-        checkAndRequest(activity, SpecialPermission.WRITE_SETTINGS, listener)
+        checkAndRequest(activity, SpecPermissionWriteSystemSetting(listener))
     }
 
     /**
      * 请求系统设置修改权限
      */
+    @JvmStatic
     fun requestWriteSystemSetting(fragment: Fragment, listener: SpecialListener) {
-        checkAndRequest(fragment, SpecialPermission.WRITE_SETTINGS, listener)
+        checkAndRequest(fragment, SpecPermissionWriteSystemSetting(listener))
     }
 
     /**
@@ -192,15 +194,17 @@ object SpecPermission {
      * 请求"未知来源管理"权限
      * @throws Need to declare android.permission.REQUEST_INSTALL_PACKAGES to call this api,需要在清单文件中添加以下权限申明
      */
+    @JvmStatic
     fun requestAppUnknownSource(activity: FragmentActivity, listener: SpecialListener) {
-        checkAndRequest(activity, SpecialPermission.UNKNOWN_APP_SOURCES, listener)
+        checkAndRequest(activity, SpecPermissionPackageInstall(listener))
     }
 
     /**
      * 请求"未知来源管理"权限
      */
+    @JvmStatic
     fun requestAppUnknownSource(fragment: Fragment, listener: SpecialListener) {
-        checkAndRequest(fragment, SpecialPermission.UNKNOWN_APP_SOURCES, listener)
+        checkAndRequest(fragment, SpecPermissionPackageInstall(listener))
     }
 
     /**
@@ -213,35 +217,9 @@ object SpecPermission {
     }
 
     /**
-     * 通知渠道是否可用
-     */
-    fun areNotificationChannelsEnabled(ctx: Context, channelId: String): Boolean {
-        if (Build.VERSION.SDK_INT <= Util.O)
-            return true
-        val notificationChannel = ctx.getSystemService(NotificationManager::class.java)
-                .getNotificationChannel(channelId)
-        //渠道为空或者渠道优先级不为none则视为拥有权限
-        return notificationChannel == null || notificationChannel.importance != NotificationManager.IMPORTANCE_NONE
-    }
-
-    /**
-     * 创建通知渠道设置意图
-     */
-    fun createNotificationChanelSettingIntentOrDefault(ctx: Context, channelId: String): Intent {
-        return IntentSupport.createNotificationChanelSettingIntent(ctx, channelId)
-                .orDefault(ctx)
-    }
-
-//    fun requestNotificationChanel(fragmentActivity: FragmentActivity, channelId: String, listener: SpecialListener) {
-//        if (areNotificationChannelsEnabled(fragmentActivity, channelId)) {
-//            listener.onSpecialGrand()
-//        }
-//        SpecPermission.checkAndRequest(fragmentActivity, )
-//    }
-
-    /**
      * 创建通知设置意图，或默认意图
      */
+    @JvmStatic
     fun createNotificationSettingIntentOrDefault(ctx: Context): Intent {
         return IntentSupport.createNotificationSettingIntent(ctx)
                 .orDefault(ctx)
@@ -250,66 +228,84 @@ object SpecPermission {
     /**
      * 请求通知权限
      */
+    @JvmStatic
     fun requestNotification(activity: FragmentActivity, listener: SpecialListener) {
-        checkAndRequest(activity, SpecialPermission.NOTIFICATION, listener)
+        checkAndRequest(activity, SpecPermissionNotification(listener))
     }
 
     /**
      * 请求通知权限
      */
+    @JvmStatic
     fun requestNotification(fragment: Fragment, listener: SpecialListener) {
-        checkAndRequest(fragment, SpecialPermission.NOTIFICATION, listener)
+        checkAndRequest(fragment, SpecPermissionNotification(listener))
     }
 
-    private fun checkAndRequest(fragment: Fragment, spec: SpecialPermission, listener: SpecialListener) {
-        if (isGrandOrThrow(fragment.requireContext(), spec)) {
-            listener.onSpecialGrand(spec)
+    /**
+     * 通知渠道是否可用
+     */
+    @JvmStatic
+    fun areNotificationChannelsEnabled(ctx: Context, channelId: String): Boolean {
+        try {
+            return areNotificationChannelsEnabledOrThrow(ctx, channelId)
+        } catch (e: Exception) {
+            return false
+        }
+    }
+
+    @JvmStatic
+    fun areNotificationChannelsEnabledOrThrow(ctx: Context, channelId: String): Boolean {
+        if (Build.VERSION.SDK_INT < Util.O)
+            return true
+        val notificationChannel = ctx.getSystemService(NotificationManager::class.java)
+                .getNotificationChannel(channelId)
+        //渠道为空或者渠道优先级不为none则视为拥有权限
+
+        return notificationChannel == null || notificationChannel.importance != NotificationManager.IMPORTANCE_NONE
+    }
+    /**
+     * 创建通知渠道设置意图
+     */
+    @JvmStatic
+    fun createNotificationChanelSettingIntentOrDefault(ctx: Context, channelId: String): Intent {
+        return IntentSupport.createNotificationChanelSettingIntent(ctx, channelId)
+                .orDefault(ctx)
+    }
+
+    /**
+     * 请求通知渠道权限
+     */
+    @JvmStatic
+    fun requestNotificationChanel(fragmentActivity: FragmentActivity, channelId: String, listener: SpecialListener) {
+        SpecPermissionManager.checkAndRequest(fragmentActivity, SpecPermissionNotificationChannel(listener, channelId))
+    }
+
+    /**
+     * 请求通知渠道权限
+     */
+    @JvmStatic
+    fun requestNotificationChanel(fragment: Fragment, channelId: String, listener: SpecialListener) {
+        SpecPermissionManager.checkAndRequest(fragment, SpecPermissionNotificationChannel(listener, channelId))
+    }
+
+    @JvmStatic
+    private fun checkAndRequest(fragment: Fragment, spec: SpecPermission) {
+        if (spec.isGrandOrThrow(fragment.requireContext())) {
+            spec.notifyGrand()
         } else {
-            FragmentSpecialCaller(fragment)
-                    .requestSpecialPermission(spec, listener)
+            SpecPermissionFragmentCaller(fragment)
+                    .requestSpecialPermission(spec)
         }
     }
 
-    private fun checkAndRequest(fragmentActivity: FragmentActivity, spec: SpecialPermission, listener: SpecialListener) {
-        if (isGrandOrThrow(fragmentActivity, spec)) {
-            listener.onSpecialGrand(spec)
+    @JvmStatic
+    private fun checkAndRequest(fragmentActivity: FragmentActivity, spec: SpecPermission) {
+        if (spec.isGrandOrThrow(fragmentActivity)) {
+            spec.notifyGrand()
         } else {
-            FragmentSpecialCaller(fragmentActivity)
-                    .requestSpecialPermission(spec, listener)
+            SpecPermissionFragmentCaller(fragmentActivity)
+                    .requestSpecialPermission(spec)
         }
     }
 
-    internal fun isGrandOrThrow(ctx: Context, spec: SpecialPermission): Boolean {
-        return when (spec) {
-            SpecialPermission.NOTIFICATION -> {
-                SpecPermission.areNotificationEnabled(ctx)
-            }
-            SpecialPermission.SYSTEM_ALERT_WINDOW -> {
-                SpecPermission.areDrawOverlaysEnableOrThrow(ctx)
-            }
-            SpecialPermission.UNKNOWN_APP_SOURCES -> {
-                SpecPermission.areRequestPackageInstallsEnable(ctx)
-            }
-            SpecialPermission.WRITE_SETTINGS -> {
-                SpecPermission.areWriteSystemSettingEnableOrThrow(ctx)
-            }
-        }
-    }
-
-    internal fun isGrand(ctx: Context, spec: SpecialPermission): Boolean {
-        return when (spec) {
-            SpecialPermission.NOTIFICATION -> {
-                SpecPermission.areNotificationEnabled(ctx)
-            }
-            SpecialPermission.SYSTEM_ALERT_WINDOW -> {
-                SpecPermission.areDrawOverlaysEnable(ctx)
-            }
-            SpecialPermission.UNKNOWN_APP_SOURCES -> {
-                SpecPermission.areRequestPackageInstallsEnable(ctx)
-            }
-            SpecialPermission.WRITE_SETTINGS -> {
-                SpecPermission.areWriteSystemSettingEnable(ctx)
-            }
-        }
-    }
 }

@@ -16,14 +16,23 @@
 
 package halo.android.v2.spec
 
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
+import halo.android.v2.caller.FragmentCaller
+
 /**
- * Created by Lucio on 2019/6/24.
+ * Created by Lucio on 2019/6/25.
  */
 
-interface SpecialListener {
+class SpecPermissionFragmentCaller : FragmentCaller, SpecialCaller {
 
-    fun onSpecialGrand()
+    constructor(fm: FragmentManager) : super(fm)
+    constructor(activity: FragmentActivity) : super(activity)
+    constructor(fragment: Fragment) : super(fragment)
 
-    fun onSpecialDeny()
+    override fun requestSpecialPermission(spec: SpecPermission) {
+        callerFragment.requestSpecialPermission(spec)
+    }
 
 }

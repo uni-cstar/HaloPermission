@@ -22,6 +22,6 @@ package halo.android.v2.spec
 
 interface SpecialCaller {
 
-    fun requestSpecialPermission(spec: SpecialPermission, listener: SpecialListener)
+    fun requestSpecialPermission(spec: SpecPermission)
 
 }

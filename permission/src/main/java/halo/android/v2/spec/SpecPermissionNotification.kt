@@ -17,13 +17,6 @@
 package halo.android.v2.spec
 
 /**
- * Created by Lucio on 2019/6/24.
+ * Created by Lucio on 2019/6/27.
  */
 
-interface SpecialListener {
-
-    fun onSpecialGrand()
-
-    fun onSpecialDeny()
-
-}

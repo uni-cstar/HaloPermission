@@ -16,23 +16,28 @@
 
 package halo.android.v2.spec
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import halo.android.v2.caller.FragmentCaller
+import android.content.Context
+import android.content.Intent
 
 /**
- * Created by Lucio on 2019/6/25.
+ * Created by Lucio on 2019/6/27.
  */
 
-class FragmentSpecialCaller : FragmentCaller, SpecialCaller {
+abstract class SpecPermission(val listener: SpecialListener) {
 
-    constructor(fm: FragmentManager) : super(fm)
-    constructor(activity: FragmentActivity) : super(activity)
-    constructor(fragment: Fragment) : super(fragment)
+    abstract fun isGrand(ctx: Context): Boolean
 
-    override fun requestSpecialPermission(spec: SpecialPermission, listener: SpecialListener) {
-        callerFragment.requestSpecialPermission(spec, listener)
+    abstract fun isGrandOrThrow(ctx: Context): Boolean
+
+    abstract fun createSettingIntent(ctx: Context): Intent
+
+    fun notifyGrand() {
+        listener.onSpecialGrand()
+    }
+
+    fun notifyDeny() {
+        listener.onSpecialDeny()
     }
 
 }
+
