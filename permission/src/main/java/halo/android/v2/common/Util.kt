@@ -30,6 +30,8 @@ import android.support.v4.content.PermissionChecker
 
 object Util {
 
+    const val KITKAT = 19
+
     //23版本以下的没有[Build.VERSION_CODES.M]变量
     const val M = 23
 
@@ -123,6 +125,14 @@ object Util {
         }
         // For Android < Android M, 默认权限没有被政策限制
         return false
+    }
+
+    /**
+     * 是否在清单文件中申明权限
+     */
+    fun isManifestPermission(ctx: Context, permission: String): Boolean {
+        val permissions = ctx.applicationContext.packageManager.getPackageInfo(ctx.applicationContext.packageName, PackageManager.GET_PERMISSIONS)
+        return permissions.requestedPermissions.contains(permission)
     }
 
 }
