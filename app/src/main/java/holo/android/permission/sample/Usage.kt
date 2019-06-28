@@ -9,17 +9,17 @@
 //import halo.android.permission.caller.PermissionCaller
 //import halo.android.permission.caller.PermissionResponder
 //import halo.android.permission.checker.PermissionChecker
-//import halo.android.permission.request.GrandAction
-//import halo.android.permission.request.PermissionListener
-//import halo.android.permission.request.RationaleRender
-//import halo.android.permission.request.SettingRender
+//import halo.android.permission.invokeRequest.GrandAction
+//import halo.android.permission.invokeRequest.PermissionListener
+//import halo.android.permission.invokeRequest.RationaleRender
+//import halo.android.permission.invokeRequest.SettingRender
 //
 ///**
 // * Created by Lucio on 18/4/10.
 // */
 //
 //class Usage : Activity() {
-//    fun request() {
+//    fun invokeRequest() {
 //        HoloPermission.with(this,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE)
 //                .setListener(object: PermissionListener{
 //                    override fun onPermissionDenied(permissions: List<String>) {

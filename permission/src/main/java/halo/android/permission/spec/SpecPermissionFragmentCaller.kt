@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-package halo.android.permission.checker
+package halo.android.permission.spec
 
-import android.content.Context
-import halo.android.permission.common.Util
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
+import halo.android.permission.caller.FragmentCaller
 
 /**
- * Created by Lucio on 2019/6/22.
+ * Created by Lucio on 2019/6/25.
  */
 
-interface PermissionChecker{
+class SpecPermissionFragmentCaller : FragmentCaller, SpecialCaller {
 
-    fun isPermissionGranted(ctx: Context, permission: String): Boolean
+    constructor(fm: FragmentManager) : super(fm)
+    constructor(activity: FragmentActivity) : super(activity)
+    constructor(fragment: Fragment) : super(fragment)
 
-    fun shouldShowRequestPermissionRationale(ctx:Context,permission: String): Boolean {
-        return Util.shouldShowRequestPermissionRationale(ctx, permission)
+    override fun requestSpecialPermission(spec: SpecPermission) {
+        callerFragment.requestSpecialPermission(spec)
     }
+
 }

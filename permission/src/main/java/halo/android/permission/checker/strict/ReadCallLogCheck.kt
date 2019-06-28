@@ -19,7 +19,7 @@ package halo.android.permission.checker.strict
 import android.content.Context
 import android.provider.CallLog
 import android.support.annotation.RequiresPermission
-import halo.android.v2.checker.StrictChecker
+import halo.android.permission.checker.StrictChecker
 
 /**
  * Created by Lucio on 18/4/24.

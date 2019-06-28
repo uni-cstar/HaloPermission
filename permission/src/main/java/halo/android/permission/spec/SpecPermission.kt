@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Lucio
+ * Copyright (C) 2019 Lucio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,30 @@
  * limitations under the License.
  */
 
-package halo.android.permission.checker.strict
+package halo.android.permission.spec
 
 import android.content.Context
-import halo.android.permission.checker.StandardChecker
+import android.content.Intent
 
 /**
- * Created by Lucio on 18/4/24.
+ * Created by Lucio on 2019/6/27.
  */
 
-class NormalCheck(ctx:Context,val permission:String) : BaseCheck(ctx){
-    override fun check(): Boolean {
-        return StandardChecker().isPermissionGranted(ctx,permission)
+abstract class SpecPermission(val listener: SpecialListener) {
+
+    abstract fun isGrand(ctx: Context): Boolean
+
+    abstract fun isGrandOrThrow(ctx: Context): Boolean
+
+    abstract fun createSettingIntent(ctx: Context): Intent
+
+    fun notifyGrand() {
+        listener.onSpecialGrand()
+    }
+
+    fun notifyDeny() {
+        listener.onSpecialDeny()
     }
 
 }
+

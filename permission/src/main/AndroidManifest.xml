@@ -2,13 +2,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="halo.android.permission">
 
-    <application>
-        <activity
-            android:name=".caller.PermissionRequestActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name=".setting.SettingRequestActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-    </application>
 
 </manifest>

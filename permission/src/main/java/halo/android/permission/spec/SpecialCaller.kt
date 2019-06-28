@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Lucio
+ * Copyright (C) 2019 Lucio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package halo.android.permission.checker.strict
-
-import android.content.Context
-import halo.android.permission.checker.StandardChecker
+package halo.android.permission.spec
 
 /**
- * Created by Lucio on 18/4/24.
+ * Created by Lucio on 2019/6/24.
  */
 
-class NormalCheck(ctx:Context,val permission:String) : BaseCheck(ctx){
-    override fun check(): Boolean {
-        return StandardChecker().isPermissionGranted(ctx,permission)
-    }
+interface SpecialCaller {
+
+    fun requestSpecialPermission(spec: SpecPermission)
 
 }

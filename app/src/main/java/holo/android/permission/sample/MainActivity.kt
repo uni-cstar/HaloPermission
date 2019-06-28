@@ -16,15 +16,15 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import halo.android.v2.HaloPermission
-import halo.android.v2.SpecPermissionManager
-import halo.android.v2.common.PLog
-import halo.android.v2.request.DefaultRationaleRender
-import halo.android.v2.request.DefaultSettingRender
-import halo.android.v2.request.PermissionListener
-import halo.android.v2.request.RationaleRender
-import halo.android.v2.setting.SettingRender
-import halo.android.v2.spec.SpecialListener
+import halo.android.permission.HaloPermission
+import halo.android.permission.HaoloSpecPermission
+import halo.android.permission.common.PLog
+import halo.android.permission.request.DefaultRationaleRender
+import halo.android.permission.request.DefaultSettingRender
+import halo.android.permission.request.PermissionListener
+import halo.android.permission.request.RationaleRender
+import halo.android.permission.setting.SettingRender
+import halo.android.permission.spec.SpecialListener
 import java.lang.RuntimeException
 
 
@@ -187,13 +187,28 @@ class MainActivity : AppCompatActivity() {
 
     fun btnUnkonwnSourceAppClick(v: View) {
         try {
-            SpecPermissionManager.requestAppUnknownSource(this, object : SpecialListener {
+            HaoloSpecPermission.requestAppUnknownSource(this, object : SpecialListener {
                 override fun onSpecialGrand() {
                     toast("允许未知来源")
                 }
 
                 override fun onSpecialDeny() {
                     toast("禁止未知来源")
+                }
+
+                override fun showRationalView(process: SpecialListener.Process) {
+                    AlertDialog.Builder(this@MainActivity)
+                            .setMessage("无法安装程序，为了能够正常的安装程序，请允许接下来请求的设置")
+                            .setPositiveButton("设置") { dialog, which ->
+                                process.onSpecialNext()
+                            }
+                            .setNegativeButton("取消") { dialog, which ->
+                                process.onSpecialCancel()
+                            }
+                            .setOnCancelListener {
+                                process.onSpecialCancel()
+                            }
+                            .create().show()
                 }
             })
         } catch (e: Exception) {
@@ -203,7 +218,7 @@ class MainActivity : AppCompatActivity() {
 
     fun btnNotificationClick(v: View) {
         tryUi {
-            SpecPermissionManager.requestNotification(this, object : SpecialListener {
+            HaoloSpecPermission.requestNotification(this, object : SpecialListener {
                 override fun onSpecialGrand() {
                     toast("允许通知")
                     showNotification()
@@ -219,7 +234,7 @@ class MainActivity : AppCompatActivity() {
 
     fun btnNotificationChannelClick(v: View) {
         tryUi {
-            SpecPermissionManager.requestNotificationChanel(this, NOTIFICATION_CHANEL, object : SpecialListener {
+            HaoloSpecPermission.requestNotificationChanel(this, NOTIFICATION_CHANEL, object : SpecialListener {
                 override fun onSpecialGrand() {
                     toast("允许通知渠道${NOTIFICATION_CHANEL}")
                 }
@@ -239,7 +254,7 @@ class MainActivity : AppCompatActivity() {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 
-            var channelEnabled = SpecPermissionManager.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
+            var channelEnabled = HaoloSpecPermission.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
             if(!channelEnabled){
                 val channel = NotificationChannel(
                         NOTIFICATION_CHANEL,
@@ -250,7 +265,7 @@ class MainActivity : AppCompatActivity() {
                 notificationManager.createNotificationChannel(channel)
             }
 
-            channelEnabled = SpecPermissionManager.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
+            channelEnabled = HaoloSpecPermission.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
 
             if(!channelEnabled)
                 throw RuntimeException("当前通知渠道不可用，无法进行通知，可以点击通知渠道按钮申请")
@@ -266,7 +281,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btnDrawOverlaysSettingClick(v: View) {
-        SpecPermissionManager.requestDrawOverlays(this, object : SpecialListener {
+        HaoloSpecPermission.requestDrawOverlays(this, object : SpecialListener {
             override fun onSpecialGrand() {
                 toast("允许悬浮窗")
                 addOverlays()
@@ -299,7 +314,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btnWriteSystemSettingClick(v: View) {
-        SpecPermissionManager.requestWriteSystemSetting(this, object : SpecialListener {
+        HaoloSpecPermission.requestWriteSystemSetting(this, object : SpecialListener {
             override fun onSpecialGrand() {
                 toast("允许修改系统设置")
             }

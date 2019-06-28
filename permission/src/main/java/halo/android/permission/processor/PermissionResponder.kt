@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Lucio
+ * Copyright (C) 2019 Lucio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package halo.android.permission.checker.strict
-
-import android.content.Context
-import halo.android.permission.checker.StandardChecker
+/**
+ * Created by Lucio on 18/4/6.
+ */
+package halo.android.permission.processor
 
 /**
- * Created by Lucio on 18/4/24.
+ * 权限请求结果回调
+ * ps:用于接收向系统请求权限的结果回调
  */
+interface PermissionResponder {
 
-class NormalCheck(ctx:Context,val permission:String) : BaseCheck(ctx){
-    override fun check(): Boolean {
-        return StandardChecker().isPermissionGranted(ctx,permission)
-    }
+    fun onPermissionResponderResult(permissions: Array<out String>, grantResults: IntArray)
 
 }
