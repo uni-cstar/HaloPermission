@@ -10,7 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
-import halo.android.permission.common.Util
+import halo.android.v2.common.Util
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -95,13 +95,20 @@ object SettingIntent {
     }
 
     /**
+     * 应用设置详情意图
+     */
+    fun createApplicationDetailSettingIntent(ctx: Context):Intent{
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        intent.data = Uri.fromParts("package", ctx.packageName, null)
+        return intent
+    }
+
+    /**
      * 默认Intent
      */
     @JvmStatic
-    fun default(context: Context): Intent {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        intent.data = Uri.fromParts("package", context.packageName, null)
-        return intent
+    fun default(ctx: Context): Intent {
+        return createApplicationDetailSettingIntent(ctx)
     }
 
     private fun huawei(ctx: Context): Intent {

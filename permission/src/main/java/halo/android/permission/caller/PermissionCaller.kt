@@ -11,10 +11,10 @@ import android.content.Context
  */
 interface PermissionCaller {
 
-    /**
-     * @param responder 回调
-     * @param permision 权限
-     */
-    fun requestPermission(ctx: Context, responder: PermissionResponder, vararg permision: String)
+//    /**
+//     * @param responder 回调
+//     * @param permision 权限
+//     */
+//    fun requestPermission(ctx: Context, responder: PermissionResponder, vararg permision: String)
 
 }

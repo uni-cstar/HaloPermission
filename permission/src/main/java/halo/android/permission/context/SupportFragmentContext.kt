@@ -3,7 +3,7 @@ package halo.android.permission.context
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
-import halo.android.permission.common.Util
+import halo.android.v2.common.Util
 
 /**
  * Created by Lucio on 18/4/4.
@@ -12,7 +12,7 @@ import halo.android.permission.common.Util
 class SupportFragmentContext(val fragment: Fragment) : PermissionContext {
 
     override val ctx: Context
-        get() = fragment.activity
+        get() = fragment.requireContext()
 
     override fun shouldShowRequestPermissionRationale(permission: String): Boolean {
         return Util.shouldShowRequestPermissionRationale(fragment, permission)

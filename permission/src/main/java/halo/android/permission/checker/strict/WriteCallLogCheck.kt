@@ -22,7 +22,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.provider.CallLog
 import android.support.annotation.RequiresPermission
-import halo.android.permission.checker.StrictChecker
+import halo.android.v2.checker.StrictChecker
 
 /**
  * Created by Lucio on 18/4/24.

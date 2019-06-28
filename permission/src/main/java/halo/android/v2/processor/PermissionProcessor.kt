@@ -35,7 +35,7 @@ class PermissionProcessor(val request: PermissionRequest,
                           val checker: PermissionChecker) : PermissionResponder, SettingResponder {
 
     //被拒绝的权限集合
-    private var permissionStates: MutableList<PermissionState> = mutableListOf()
+    private var permissionStates: List<PermissionState> = listOf()
 
     /**
      * 控制SettingRender只显示一次
@@ -120,7 +120,7 @@ class PermissionProcessor(val request: PermissionRequest,
         var exitsDenyPermission: Boolean = false
 
         val ctx = request.ctx
-        val permissionStates = permissions.map { permission ->
+         permissionStates = permissions.map { permission ->
             val isGrand = checker.isPermissionGranted(ctx, permission)
             val shouldRationale = checker.shouldShowRequestPermissionRationale(ctx, permission)
 

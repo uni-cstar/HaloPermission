@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/release-1.0.1--rc-blue.svg)](https://github.com/SupLuo/HaloPermission/releases)
+[![Release](https://img.shields.io/badge/release-1.0.2--rc-blue.svg)](https://github.com/SupLuo/HaloPermission/releases)
 [![GitHub license](https://img.shields.io/github/license/SupLuo/HaloPermission.svg)](https://github.com/SupLuo/HaloPermission/blob/master/LICENSE.txt)
 
 ## HoloPermission

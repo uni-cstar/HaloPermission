@@ -17,7 +17,7 @@
 package halo.android.permission.checker.strict
 
 import android.content.Context
-import halo.android.permission.checker.StandardChecker23
+import halo.android.v2.checker.StandardChecker
 
 /**
  * Created by Lucio on 18/4/24.
@@ -25,7 +25,7 @@ import halo.android.permission.checker.StandardChecker23
 
 class NormalCheck(ctx:Context,val permission:String) : BaseCheck(ctx){
     override fun check(): Boolean {
-        return StandardChecker23().isPermissionGranted(ctx,permission)
+        return StandardChecker().isPermissionGranted(ctx,permission)
     }
 
 }

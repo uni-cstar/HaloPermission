@@ -10,7 +10,7 @@ import android.content.Context
  */
 class ActivityPermissionCaller : PermissionCaller {
 
-    override fun requestPermission(ctx: Context, responder: PermissionResponder, vararg permision: String) {
-        PermissionRequestActivity.startRequest(ctx, responder, *permision)
-    }
+//    override fun requestPermission(ctx: Context, responder: PermissionResponder, vararg permision: String) {
+//        PermissionRequestActivity.startRequest(ctx, responder, *permision)
+//    }
 }

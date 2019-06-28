@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import halo.android.permission.common.BaseRequestActivity
+import halo.android.v2.setting.SettingResponder
 
 
 /**
@@ -36,14 +37,14 @@ class SettingRequestActivity : BaseRequestActivity() {
 
 
     override fun onCreateInit() {
-        val settingIntent = SettingIntent.getCanResolvedSettingIntent(this, mResponder?.getCustomSettingIntent(this))
-        if (settingIntent != null) {
-            startActivityForResult(settingIntent, REQUEST_CODE)
-        } else {
-            //无法打开设置界面，回调以便继续后面流程
-            Log.e("SettingRequestActivity", "no activity can handle this intent $settingIntent")
-            notifySettingResult()
-        }
+//        val settingIntent = SettingIntent.getCanResolvedSettingIntent(this, mResponder?.getCustomSettingIntent(this))
+//        if (settingIntent != null) {
+//            startActivityForResult(settingIntent, REQUEST_CODE)
+//        } else {
+//            //无法打开设置界面，回调以便继续后面流程
+//            Log.e("SettingRequestActivity", "no activity can handle this intent $settingIntent")
+//            notifySettingResult()
+//        }
     }
 
 
@@ -60,8 +61,8 @@ class SettingRequestActivity : BaseRequestActivity() {
     }
 
     private fun notifySettingResult() {
-        mResponder?.onSettingResult()
-        finish()
+//        mResponder?.onSettingResult()
+//        finish()
     }
 
     override fun finish() {

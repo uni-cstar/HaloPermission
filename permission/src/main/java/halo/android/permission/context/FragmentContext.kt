@@ -3,7 +3,7 @@ package halo.android.permission.context
 import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import halo.android.permission.common.Util
+import halo.android.v2.common.Util
 
 /**
  * Created by Lucio on 18/4/4.
