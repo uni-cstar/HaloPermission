@@ -33,31 +33,19 @@ android运行时权限是在6.0之后才提供的，对于以往版本的权限�
     由前一个问题的答案可以得出，我们可以通过对权限的实际使用来进一步确定权限授权状态，如果没有被授权则可以打开权限设置界面让用户允许权限。
 
 ## HaloPermission的设计
-HaloPermission在设计上将一个权限请求操作视作为一个流程(Processor)，
-一个流程由用户的权限请求信息(Request)、权限检测者（PermissionChecker）、权限请求者（PermissionCaller）和一个权限设置界面请求者（SettingCaller）组成。
-权限请求信息(Request)是最基本的部分，其它部分都可以任意搭配来应对不同情况的需求。
-
-* Request
-    包含所有基本信息：当前上下文，权限信息，回调，RationaleRender，SettingRender的配置。
-
-* PermissionChecker
-    用于判断权限是否被授权，目前提供了StandardChecker、StandardChecker23、StrictChecker；
-    * StandardChecker
-    标准权限校验，在23以前默认返回true，在23以后，如果targetVersion小于23，则使用android.support.v4.content.PermissionChecker提供的方法进行校验,否则使用android.support.v4.content.ContextCompat提供的方法校验
-    * StandardChecker23
-    标准权限校验，与StandardChecker不同的地方是增加了AppOpsManagerCompat的判断部分。
-    * StrictChecker
-    严格权限校验，通过对对应权限的具体使用确定权限授权状态，目前支持一些常规权限的实现。
-* PermissionCaller
-    用于向系统发起权限请求申请，目前只有`ActivityPermissionCaller`一个具体实现。
-    `ActivityPermissionCaller`在请求权限的时候，启动一个透明的Activity作为请求主体发起权限请求并回调结果。
-    当然可以非常容易的实现一个利用Fragment的请求方法，最初HaloPermission本身也提供了Fragment的请求方式，但是最终去掉了这部分的实现，
-    因为对于Fragment的使用机制，如果使用不当，可能会出现一些奇怪的问题，我想这是你我都不愿看到的。
-* SettingCaller
-    用于请求打开系统权限设置界面，这一部分能够被改动的可能性很小，因此目前并没有让整个流程可以配置`SettingCaller`而是使用了一个默认的`SettingPermissionCaller`实现，
-    用于充当与系统权限设置界面的中介，并未后续流程提供服务。
-* Processor
-    目前流程都是基于`BaseProcessor`流程创建，提供了`CommonProcessor`,`StrictProcessor`两个具体的实现。
+    HaloPermission的设计将一次权限请求视为一个流程Processor，因此Processor=Request+PermissionCaller+PermissionChecker+Setting
+    
+    Request:权限请求的基本信息，也就是描述请求什么权限，回调，是否需要向用户解释，是否需要打开权限设置界面，以及权限设置界面的Intent是否自定义等。
+    
+    Processor：权限请求流程，对于权限请求来说，通常权限请求的业务流程通常是固定的，因此这部分的内容相对固定，不能进行扩展。
+    
+    PermissionCaller：权限请求者，也就是到底是以什么方式进行权限请求的，是利用透明的FragmentRxPermission的方式），还是透明Activity，还是使用当前上下文（Activity或Fragment）进行权限请求，由PermissionCaller决定，目前内置了RxPermission的形式，早期的版本其实提供了透明Activity的形式，但是使用觉得透明Activity的形式有点重。其次也提供了原始上下文，这一版本重构并未一并添加过来，如果有需求，则可以进行添加。
+    
+    PermissionChecker：权限校验者，其作用是为了在权限请求过程中以此为依据判定权限是否被授权，因此如果你觉得库里面写的权限校验规则不合理，你完全可以自己写一个Checker替换即可。目前内置了StandardChecker，即标准权限判断+AppOpsManagerCompat实现；还提供了一种StrictChecker校验模式，这个模式是在标准模式的基础上额外附加了一些严格权限校验（主要是为了6.0以下），因此Strict的模式并不是很建议使用，因为6.0以下又何必做这些呢，是有理由向Leader解释的。
+    因此各个组件的职责定义清晰，并且相对独立，所以如果你觉得那一部分不合胃口，完全可以想办法替换掉，至少其他部件是可以重复利用的。
+    
+## 特殊权限
+    目前支持未知来源、通知、通知渠道、悬浮窗、修改系统设置等。具体使用见说明文档。
 
 ## HaloPermission的具体使用
 [查看具体使用](https://github.com/SupLuo/HaloPermission/blob/master/doc/README_USAGE.md)
