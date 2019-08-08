@@ -35,7 +35,7 @@ import halo.android.permission.spec.*
  * Created by Lucio on 2019/6/24.
  */
 
-object HaoloSpecPermission {
+object HaloSpecPermission {
 
     /**
      * 是否拥有悬浮窗权限
@@ -278,7 +278,7 @@ object HaoloSpecPermission {
      */
     @JvmStatic
     fun requestNotificationChanel(fragmentActivity: FragmentActivity, channelId: String, listener: SpecialListener) {
-        HaoloSpecPermission.checkAndRequest(fragmentActivity, SpecPermissionNotificationChannel(listener, channelId))
+        HaloSpecPermission.checkAndRequest(fragmentActivity, SpecPermissionNotificationChannel(listener, channelId))
     }
 
     /**
@@ -286,7 +286,7 @@ object HaoloSpecPermission {
      */
     @JvmStatic
     fun requestNotificationChanel(fragment: Fragment, channelId: String, listener: SpecialListener) {
-        HaoloSpecPermission.checkAndRequest(fragment, SpecPermissionNotificationChannel(listener, channelId))
+        HaloSpecPermission.checkAndRequest(fragment, SpecPermissionNotificationChannel(listener, channelId))
     }
 
     @JvmStatic

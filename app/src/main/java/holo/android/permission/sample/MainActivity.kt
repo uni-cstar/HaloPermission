@@ -17,7 +17,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import halo.android.permission.HaloPermission
-import halo.android.permission.HaoloSpecPermission
+import halo.android.permission.HaloSpecPermission
 import halo.android.permission.common.PLog
 import halo.android.permission.request.DefaultRationaleRender
 import halo.android.permission.request.DefaultSettingRender
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btn1Click(v: View?) {
-        HaloPermission.newRequest(this, Manifest.permission.CALL_PHONE)
+        HaloPermission.newRequest( Manifest.permission.CALL_PHONE)
                 .setListener(object : PermissionListener {
                     override fun onPermissionDenied(permissions: List<String>) {
                         toast("不允许打电话")
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun btn2Click(v: View?) {
-        HaloPermission.newRequest(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        HaloPermission.newRequest( Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .setRationaleRender(DefaultRationaleRender("为保障功能的正常使用，请允许程序访问外部存储。",
                         "温馨提示", "确定", "取消"))
                 .setListener(object : PermissionListener {
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btn3Click(v: View?) {
-        HaloPermission.newRequest(this, Manifest.permission.CAMERA)
+        HaloPermission.newRequest(Manifest.permission.CAMERA)
                 .setSettingRender(DefaultSettingRender("无法调用相机，请允许权限。",
                         "温馨提示", "设置", "取消"))
                 .setListener(object : PermissionListener {
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btn4Click(v: View?) {
-        HaloPermission.newRequest(this, Manifest.permission.READ_CONTACTS,
+        HaloPermission.newRequest(Manifest.permission.READ_CONTACTS,
                 Manifest.permission.SEND_SMS)
                 .setRationaleRender(object:RationaleRender{
                     override fun show(ctx: Context, permission: List<String>, process: RationaleRender.Process) {
@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
 
     fun btnUnkonwnSourceAppClick(v: View) {
         try {
-            HaoloSpecPermission.requestAppUnknownSource(this, object : SpecialListener {
+            HaloSpecPermission.requestAppUnknownSource(this, object : SpecialListener {
                 override fun onSpecialGrand() {
                     toast("允许未知来源")
                 }
@@ -218,7 +218,7 @@ class MainActivity : AppCompatActivity() {
 
     fun btnNotificationClick(v: View) {
         tryUi {
-            HaoloSpecPermission.requestNotification(this, object : SpecialListener {
+            HaloSpecPermission.requestNotification(this, object : SpecialListener {
                 override fun onSpecialGrand() {
                     toast("允许通知")
                     showNotification()
@@ -234,7 +234,7 @@ class MainActivity : AppCompatActivity() {
 
     fun btnNotificationChannelClick(v: View) {
         tryUi {
-            HaoloSpecPermission.requestNotificationChanel(this, NOTIFICATION_CHANEL, object : SpecialListener {
+            HaloSpecPermission.requestNotificationChanel(this, NOTIFICATION_CHANEL, object : SpecialListener {
                 override fun onSpecialGrand() {
                     toast("允许通知渠道${NOTIFICATION_CHANEL}")
                 }
@@ -254,7 +254,7 @@ class MainActivity : AppCompatActivity() {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 
-            var channelEnabled = HaoloSpecPermission.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
+            var channelEnabled = HaloSpecPermission.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
             if(!channelEnabled){
                 val channel = NotificationChannel(
                         NOTIFICATION_CHANEL,
@@ -265,7 +265,7 @@ class MainActivity : AppCompatActivity() {
                 notificationManager.createNotificationChannel(channel)
             }
 
-            channelEnabled = HaoloSpecPermission.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
+            channelEnabled = HaloSpecPermission.areNotificationChannelsEnabled(this, NOTIFICATION_CHANEL)
 
             if(!channelEnabled)
                 throw RuntimeException("当前通知渠道不可用，无法进行通知，可以点击通知渠道按钮申请")
@@ -281,7 +281,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btnDrawOverlaysSettingClick(v: View) {
-        HaoloSpecPermission.requestDrawOverlays(this, object : SpecialListener {
+        HaloSpecPermission.requestDrawOverlays(this, object : SpecialListener {
             override fun onSpecialGrand() {
                 toast("允许悬浮窗")
                 addOverlays()
@@ -314,7 +314,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btnWriteSystemSettingClick(v: View) {
-        HaoloSpecPermission.requestWriteSystemSetting(this, object : SpecialListener {
+        HaloSpecPermission.requestWriteSystemSetting(this, object : SpecialListener {
             override fun onSpecialGrand() {
                 toast("允许修改系统设置")
             }

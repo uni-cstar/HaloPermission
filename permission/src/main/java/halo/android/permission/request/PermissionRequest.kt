@@ -29,8 +29,7 @@ import halo.android.permission.setting.SettingRender
  * Created by Lucio on 2019/6/22.
  */
 
-class PermissionRequest(val ctx: Context,
-                        val permissions: Array<out String>) {
+class PermissionRequest(val permissions: Array<out String>) {
 
     /**
      * 用于渲染Rationale permission（通常是一个对话框提示用户让用户允许app接下来请求的权限）

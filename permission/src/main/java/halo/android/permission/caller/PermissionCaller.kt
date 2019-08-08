@@ -16,6 +16,7 @@
 
 package halo.android.permission.caller
 
+import android.content.Context
 import android.content.Intent
 import halo.android.permission.processor.PermissionResponder
 import halo.android.permission.setting.SettingResponder
@@ -26,6 +27,7 @@ import halo.android.permission.setting.SettingResponder
 
 interface PermissionCaller {
 
+    val ctx:Context
     /**
      * @param responder 回调
      * @param permissions 权限

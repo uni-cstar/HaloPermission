@@ -16,6 +16,7 @@
 
 package halo.android.permission.spec
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
@@ -27,9 +28,10 @@ import halo.android.permission.caller.FragmentCaller
 
 class SpecPermissionFragmentCaller : FragmentCaller, SpecialCaller {
 
-    constructor(fm: FragmentManager) : super(fm)
+    constructor(ctx: Context, fm: FragmentManager) : super(ctx, fm)
     constructor(activity: FragmentActivity) : super(activity)
     constructor(fragment: Fragment) : super(fragment)
+
 
     override fun requestSpecialPermission(spec: SpecPermission) {
         callerFragment.requestSpecialPermission(spec)

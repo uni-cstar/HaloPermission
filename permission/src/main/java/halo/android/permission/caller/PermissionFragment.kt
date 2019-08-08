@@ -16,6 +16,7 @@
 
 package halo.android.permission.caller
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -26,6 +27,9 @@ import halo.android.permission.spec.SpecPermission
 import halo.android.permission.spec.SpecialCaller
 
 class PermissionFragment : Fragment(), PermissionCaller, SpecialCaller {
+
+    override val ctx: Context
+        get() = this.requireContext()
 
 
     private var mPermissionResponder: PermissionResponder? = null

@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
-    buildToolsVersion rootProject.ext.build_tools_version
     defaultConfig {
         applicationId "holo.android.permission.sample"
         minSdkVersion 15

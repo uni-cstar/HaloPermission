@@ -16,6 +16,7 @@
 
 package halo.android.permission.caller
 
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -28,7 +29,7 @@ import halo.android.permission.setting.SettingResponder
  */
 
 
-open class FragmentCaller(val fm: FragmentManager) : PermissionCaller {
+open class FragmentCaller(override val ctx: Context, val fm: FragmentManager) : PermissionCaller {
 
     private val TAG = FragmentCaller::class.java.simpleName
 
@@ -41,9 +42,9 @@ open class FragmentCaller(val fm: FragmentManager) : PermissionCaller {
         instance!!
     }
 
-    constructor(activity: FragmentActivity) : this(activity.supportFragmentManager)
+    constructor(activity: FragmentActivity) : this(activity, activity.supportFragmentManager)
 
-    constructor(fragment: Fragment) : this(fragment.childFragmentManager)
+    constructor(fragment: Fragment) : this(fragment.requireContext(), fragment.childFragmentManager)
 
     private fun findPermissionFragment(): PermissionFragment? {
         return fm.findFragmentByTag(TAG) as? PermissionFragment

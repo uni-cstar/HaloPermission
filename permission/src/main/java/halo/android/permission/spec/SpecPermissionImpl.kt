@@ -18,7 +18,7 @@ package halo.android.permission.spec
 
 import android.content.Context
 import android.content.Intent
-import halo.android.permission.HaoloSpecPermission
+import halo.android.permission.HaloSpecPermission
 
 /**
  * Created by Lucio on 2019/6/27.
@@ -33,11 +33,11 @@ open class SpecPermissionNotification(listener: SpecialListener) : SpecPermissio
     }
 
     override fun isGrand(ctx: Context): Boolean {
-        return HaoloSpecPermission.areNotificationEnabled(ctx)
+        return HaloSpecPermission.areNotificationEnabled(ctx)
     }
 
     override fun createSettingIntent(ctx: Context): Intent {
-        return HaoloSpecPermission.createNotificationSettingIntentOrDefault(ctx)
+        return HaloSpecPermission.createNotificationSettingIntentOrDefault(ctx)
     }
 }
 
@@ -49,13 +49,13 @@ class SpecPermissionNotificationChannel(listener: SpecialListener,val channelId:
     override fun isGrand(ctx: Context): Boolean {
         //通知渠道的权限受限于通知总开关，所以需要先判断是否具有通知权限
         return super.isGrand(ctx) &&
-                HaoloSpecPermission.areNotificationChannelsEnabled(ctx,channelId)
+                HaloSpecPermission.areNotificationChannelsEnabled(ctx,channelId)
     }
 
     override fun isGrandOrThrow(ctx: Context): Boolean {
         //通知渠道的权限受限于通知总开关，所以需要先判断是否具有通知权限
         return super.isGrandOrThrow(ctx) &&
-                HaoloSpecPermission.areNotificationChannelsEnabledOrThrow(ctx,channelId)
+                HaloSpecPermission.areNotificationChannelsEnabledOrThrow(ctx,channelId)
     }
 
     override fun createSettingIntent(ctx: Context): Intent {
@@ -63,7 +63,7 @@ class SpecPermissionNotificationChannel(listener: SpecialListener,val channelId:
         if(!super.isGrand(ctx)){
             return super.createSettingIntent(ctx)
         }else{
-            return HaoloSpecPermission.createNotificationChanelSettingIntentOrDefault(ctx, channelId)
+            return HaloSpecPermission.createNotificationChanelSettingIntentOrDefault(ctx, channelId)
         }
     }
 
@@ -73,15 +73,15 @@ class SpecPermissionNotificationChannel(listener: SpecialListener,val channelId:
 class SpecPermissionSystemAlertWindow(listener: SpecialListener) : SpecPermission(listener) {
 
     override fun isGrand(ctx: Context): Boolean {
-        return HaoloSpecPermission.areDrawOverlaysEnable(ctx)
+        return HaloSpecPermission.areDrawOverlaysEnable(ctx)
     }
 
     override fun isGrandOrThrow(ctx: Context): Boolean {
-        return HaoloSpecPermission.areDrawOverlaysEnableOrThrow(ctx)
+        return HaloSpecPermission.areDrawOverlaysEnableOrThrow(ctx)
     }
 
     override fun createSettingIntent(ctx: Context): Intent {
-        return HaoloSpecPermission.createDrawOverlaysSettingIntentOrDefault(ctx)
+        return HaloSpecPermission.createDrawOverlaysSettingIntentOrDefault(ctx)
     }
 
 }
@@ -94,11 +94,11 @@ class SpecPermissionPackageInstall(listener: SpecialListener) : SpecPermission(l
     }
 
     override fun isGrand(ctx: Context): Boolean {
-        return HaoloSpecPermission.areRequestPackageInstallsEnable(ctx)
+        return HaloSpecPermission.areRequestPackageInstallsEnable(ctx)
     }
 
     override fun createSettingIntent(ctx: Context): Intent {
-        return HaoloSpecPermission.createAppUnknownSourceManagerIntentOrDefault(ctx)
+        return HaloSpecPermission.createAppUnknownSourceManagerIntentOrDefault(ctx)
     }
 
 }
@@ -106,15 +106,15 @@ class SpecPermissionPackageInstall(listener: SpecialListener) : SpecPermission(l
 //系统设置修改
 class SpecPermissionWriteSystemSetting(listener: SpecialListener) : SpecPermission(listener) {
     override fun isGrandOrThrow(ctx: Context): Boolean {
-        return HaoloSpecPermission.areWriteSystemSettingEnableOrThrow(ctx)
+        return HaloSpecPermission.areWriteSystemSettingEnableOrThrow(ctx)
     }
 
     override fun isGrand(ctx: Context): Boolean {
-        return HaoloSpecPermission.areWriteSystemSettingEnable(ctx)
+        return HaloSpecPermission.areWriteSystemSettingEnable(ctx)
     }
 
     override fun createSettingIntent(ctx: Context): Intent {
-        return HaoloSpecPermission.createWriteSystemSettingIntentOrDefault(ctx)
+        return HaloSpecPermission.createWriteSystemSettingIntentOrDefault(ctx)
     }
 
 }

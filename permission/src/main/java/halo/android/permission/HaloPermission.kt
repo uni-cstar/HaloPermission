@@ -16,7 +16,6 @@
 
 package halo.android.permission
 
-import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import halo.android.permission.caller.FragmentCaller
@@ -64,15 +63,15 @@ object HaloPermission {
         return StrictChecker()
     }
 
-    fun newRequest(ctx: Context, vararg permissions: String): PermissionRequest {
-        return PermissionRequest(ctx, permissions)
+    fun newRequest(vararg permissions: String): PermissionRequest {
+        return PermissionRequest(permissions)
     }
 
 
     fun invokeRequest(activity: FragmentActivity,
                       grandAction: GrandAction,
                       vararg permissions: String) {
-        newRequest(activity, *permissions)
+        newRequest(*permissions)
                 .setGrandAction(grandAction)
                 .request(activity)
     }
@@ -80,7 +79,7 @@ object HaloPermission {
     fun invokeRequest(fragment: Fragment,
                       grandAction: GrandAction,
                       vararg permissions: String) {
-        newRequest(fragment.requireContext(), *permissions)
+        newRequest(*permissions)
                 .setGrandAction(grandAction)
                 .request(fragment)
     }
@@ -88,7 +87,7 @@ object HaloPermission {
     fun invokeRequest(activity: FragmentActivity,
                       permissionListener: PermissionListener,
                       vararg permissions: String) {
-        newRequest(activity, *permissions)
+        newRequest(*permissions)
                 .setListener(permissionListener)
                 .request(activity)
     }
@@ -96,7 +95,7 @@ object HaloPermission {
     fun invokeRequest(fragment: Fragment,
                       permissionListener: PermissionListener,
                       vararg permissions: String) {
-        newRequest(fragment.requireContext(), *permissions)
+        newRequest(*permissions)
                 .setListener(permissionListener)
                 .request(fragment)
     }

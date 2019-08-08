@@ -55,7 +55,7 @@ class PermissionProcessor(val request: PermissionRequest,
         PLog.d("[invoke]:即将请求以下权限：${permissions.joinToString(",")}")
         //过滤被拒绝的权限
         val denyPermissions = permissions.filter {
-            !checker.isPermissionGranted(request.ctx, it)
+            !checker.isPermissionGranted(caller.ctx, it)
         }
         if (denyPermissions.isNotEmpty()) {
             PLog.d("[invoke]:以下权限未授权，进行请求${denyPermissions.joinToString(",")}")
@@ -63,7 +63,7 @@ class PermissionProcessor(val request: PermissionRequest,
 //            if (Build.VERSION.SDK_INT >= Util.M) {//有未授权权限
 //                //过滤Rationale权限
 //                val rationalePermissions = permissionStates.filter {
-//                    checker.shouldShowRequestPermissionRationale(invokeRequest.ctx, it)
+//                    checker.shouldShowRequestPermissionRationale(invokecaller.ctx, it)
 //                }
 //                if (!rationalePermissions.isNullOrEmpty()) {
 //                    //有Rationale权限，执行RatinaleRender流程，判断是否需要向用户解释获取权限的原因
@@ -119,7 +119,7 @@ class PermissionProcessor(val request: PermissionRequest,
         var containsNever: Boolean = false
         var exitsDenyPermission: Boolean = false
 
-        val ctx = request.ctx
+        val ctx = caller.ctx
          permissionStates = permissions.map { permission ->
             val isGrand = checker.isPermissionGranted(ctx, permission)
             val shouldRationale = checker.shouldShowRequestPermissionRationale(ctx, permission)
@@ -157,7 +157,7 @@ class PermissionProcessor(val request: PermissionRequest,
 //        permissionStates.clear()
 //        //过滤被拒绝的权限
 //        permissions.filterTo(permissionStates) {
-//            !checker.isPermissionGranted(invokeRequest.ctx, it)
+//            !checker.isPermissionGranted(invokecaller.ctx, it)
 //        }
 //
 //        if (permissionStates.isNullOrEmpty()) {
@@ -176,7 +176,7 @@ class PermissionProcessor(val request: PermissionRequest,
         if (rationaleRender != null) {
             PLog.d("[invokeRationaleRenderProcess]:执行RationaleRender展示")
             //执行RationaleRender显示
-            rationaleRender.show(request.ctx, permissions, mRationaleRenderProcess)
+            rationaleRender.show(caller.ctx, permissions, mRationaleRenderProcess)
         } else {
             PLog.d("[invokeRationaleRenderProcess]:未设置RationaleRender,执行invokeSettingRenderProcess")
             invokeSettingRenderProcess()
@@ -217,7 +217,7 @@ class PermissionProcessor(val request: PermissionRequest,
         if (settingRender != null && !isSettingRenderDone) {
             PLog.d("[invokeSettingRenderProcess]:已设置SettingRender，并且未显示过权限设置界面，显示")
             isSettingRenderDone = true
-            settingRender.show(request.ctx, getDeniedPermissions(), mSettingRenderProcess)
+            settingRender.show(caller.ctx, getDeniedPermissions(), mSettingRenderProcess)
         } else {
             PLog.d("[invokeSettingRenderProcess]:未设置SettingRender，通知权限请求失败")
             notifyPermissionFailed()
@@ -255,7 +255,7 @@ class PermissionProcessor(val request: PermissionRequest,
      * 请求权限设置界面
      */
     private fun requestPermissionSettingReal() {
-        val settingIntent = PermissionSetting.getCanResolvedSettingIntent(request.ctx, request.getSettingRender()?.getCustomSettingIntent(request.ctx))
+        val settingIntent = PermissionSetting.getCanResolvedSettingIntent(caller.ctx, request.getSettingRender()?.getCustomSettingIntent(caller.ctx))
         if (settingIntent != null) {
             caller.requestPermissionSetting(this, settingIntent)
         } else {
@@ -274,7 +274,7 @@ class PermissionProcessor(val request: PermissionRequest,
         if (autoCheckWhenSettingResult) {
             //过滤被拒绝的权限
             val deniedPermissions = request.permissions.filter{
-                !checker.isPermissionGranted(request.ctx, it)
+                !checker.isPermissionGranted(caller.ctx, it)
             }
 
             if (deniedPermissions.isEmpty()) {
