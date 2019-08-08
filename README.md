@@ -6,7 +6,7 @@ An Android permission library developed by Kotlin language with higher extensibi
 
 Kotlin语言开发的具有高可扩展性和可控性的Android权限库。
 
-### Features
+### Features   
 * 良好的设计和可扩展性（个人觉得最区别于别的库的最主要原因）
 * 兼容到8.0所需要的相关特殊权限，并可以很好的进行扩展（未知来源、悬浮窗、系统设置修改、通知、通知渠道等权限的处理）
 * 支持RationaleRender（向用户解释为什么申请权限）
