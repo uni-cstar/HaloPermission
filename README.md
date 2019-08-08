@@ -4,18 +4,21 @@
 ## HoloPermission
 An Android permission library developed by Kotlin language with higher extensibility and compatibility.
 
-Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支持。
+Kotlin语言开发的具有高可扩展性和可控性的Android权限库。
+
+### Features
+* 良好的设计和可扩展性（个人觉得最区别于别的库的最主要原因）
+* 兼容到8.0所需要的相关特殊权限，并可以很好的进行扩展（未知来源、悬浮窗、系统设置修改、通知、通知渠道等权限的处理）
+* 支持RationaleRender（向用户解释为什么申请权限）
+* 支持SettingRender（当权限没有授权时，可以打开权限设置界面进行设置，并自动检测设置是否改变）
+* 更好的系统权限设置界面兼容性（尽量兼容不同的系统厂商的权限设置界面）
+* 6.0以下权限支持（不建议，感觉没必要了）
+
 
 ## [HaloPermission解惑(Why choose "HaloPermission")](https://github.com/SupLuo/HaloPermission/blob/master/doc/What%20is%20%22HaloPermission%22.md)
 您可能对HaloPermission有诸多疑问：已经有那么多成熟的权限处理框架，为什么要用这个？这个有什么值得使用的理由？为什么这个库的星星这么少？这库到底靠谱不靠谱？...
 希望[HaloPermission解惑](https://github.com/SupLuo/HaloPermission/blob/master/doc/What%20is%20%22HaloPermission%22.md)能够消除您心中的疑虑。
 
-### Features
-* 支持RationaleRender
-* 支持SettingRender（支持配置打开权限设置界面，并自动检测设置是否改变）
-* 更好的系统权限设置界面兼容性
-* 6.0以下权限支持
-* 灵活简易的功能配置
 
 ### Setup
 
@@ -52,7 +55,7 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
     HaloPermission是基于`org.jetbrains.kotlin:kotlin-stdlib:1.3.11`开发的，如果您的工程也支持Kotlin开发，并且与HaloPermission版本不一致，您可以排除HaloPermission对`kotlin-stdlib`的依赖。
     但是`kotlin-stdlib`的版本最好不能低于1.3.11
     ```
-        compile('halo.android:permission:1.0.1-rc@aar'){
+        compile('halo.android:permission:1.0.5-rc@aar'){
             //传递依赖
             transitive = true
             //排除kotlin-stdlib依赖
@@ -61,38 +64,11 @@ Kotlin语言开发的Android权限库；提供更好的扩展性和兼容性支�
     ```
 
 ### Usage
-  
 **[查看详细使用](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)**
 
 ### 运行效果图
-由于常规的运行截图比较基础，这里只给出RationaleRender和SettingRender的运行截图
-* 包含SettingRender的效果
-
-    ![image](https://github.com/SupLuo/HaloPermission/blob/master/doc/setting_render.gif?raw=true)
-* 包含RationaleRender的效果
-
-    ![image](https://github.com/SupLuo/HaloPermission/blob/master/doc/rationale_render.gif?raw=true)
-
-### 发布记录
-
-##### 1.0.2-rc
-* 支持使用原始的上下文（用户当前界面）请求权限，使用方法查看[详细使用第6点](https://github.com/SupLuo/HoloPermission/blob/master/doc/README_USAGE.md)
-
-##### 1.0.1-rc
-* 以更合理的方式提供依赖传递
-
-##### 1.0-rc
-* 提供严格权限检查实现（通过对权限的具体使用判断权限是否可用）
-* 兼容6.0以下权限
-
-##### 0.9-rc
-* 支持SettingRender
-* 支持RationaleRender
-* 提供标准权限检查Checker实现
-* 提供Activity权限请求方式Caller实现
-
-
-
+直接下载demo运行吧。。。
+[Demo下载地址](https://github.com/SupLuo/HaloPermission/blob/master/doc/app-release.apk)
 
 ### 缺陷说明
 对于6.0以下的权限处理，某些权限校验**可能**并不准确，这一部分稍后进一步说明原因。
